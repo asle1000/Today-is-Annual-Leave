@@ -1,3 +1,5 @@
+package com.dayoff.designsystem.theme.colors
+
 import androidx.compose.ui.graphics.Color
 
 object TextColor {

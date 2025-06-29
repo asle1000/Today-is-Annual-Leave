@@ -1,3 +1,5 @@
+package com.dayoff.designsystem.theme.colors
+
 object IconColor {
     val brand = TextColor.Brand
     val danger = TextColor.Danger
