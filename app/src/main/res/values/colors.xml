@@ -1,10 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <!-- Background -->
+    <color name="background_base_primary">#FFF4FC</color>
+    <color name="background_base_on">#272A37</color>
+    <color name="background_surface_primary">#FFF4FC</color>
+    <color name="background_surface_secondary">#F4F6FA</color>
+    <color name="background_surface_tertiary">#E4E8EF</color>
+    <color name="background_brand_primary">#60D394</color>
+    <color name="background_brand_secondary">#4DB484</color>
+    <color name="background_brand_tertiary">#2E8B57</color>
+    <color name="background_brand_overlay">#6EC0F9DB</color>
+    <color name="background_disabled_primary">#D1DBE5</color>
+    <color name="background_success_primary">#B3E2C0</color>
+    <color name="background_warning_primary">#FFE5B4</color>
+    <color name="background_danger_primary">#FF4E4A</color>
+
+    <!-- Utilities -->
+    <color name="utilities_dimmed">#7A000000</color>
+    <color name="utilities_host">#CC000000</color>
+    <color name="utilities_heading">#AEFFFFFF</color>
+    <color name="utilities_tooltip">#272A37</color>
+
+    <!-- Text -->
+    <color name="text_brand_primary">#60D394</color>
+    <color name="text_brand_secondary">#4DB484</color>
+    <color name="text_danger_primary">#FF4E4A</color>
+    <color name="text_disabled_primary">#D1DBE5</color>
+    <color name="text_warning_primary">#FFE5B4</color>
+    <color name="text_success_primary">#B3E2C0</color>
+    <color name="text_surface_primary">#272A37</color>
+    <color name="text_surface_secondary">#606367</color>
+    <color name="text_surface_tertiary">#A6AAB3</color>
+    <color name="text_surface_placeholder">#A6AAB3</color>
+
+    <!-- Icon -->
+    <color name="icon_brand_primary">#60D394</color>
+    <color name="icon_brand_secondary">#4DB484</color>
+    <color name="icon_danger_primary">#FF4E4A</color>
+    <color name="icon_disabled_primary">#D1DBE5</color>
+    <color name="icon_warning_primary">#FFE5B4</color>
+    <color name="icon_success_primary">#B3E2C0</color>
+    <color name="icon_surface_primary">#272A37</color>
+    <color name="icon_surface_secondary">#606367</color>
+    <color name="icon_surface_tertiary">#A6AAB3</color>
+    <color name="icon_surface_placeholder">#A6AAB3</color>
+
+    <!-- Border -->
+    <color name="border_base_primary">#E4E8EF</color>
+    <color name="border_surface_primary">#D1DBE5</color>
+    <color name="border_surface_secondary">#E4E8EF</color>
+    <color name="border_surface_tertiary">#F4F6FA</color>
+    <color name="border_brand_primary">#60D394</color>
+    <color name="border_brand_secondary">#B3E2C0</color>
+    <color name="border_brand_tertiary">#2E8B57</color>
+    <color name="border_disabled_primary">#D1DBE5</color>
+    <color name="border_success_primary">#B3E2C0</color>
+    <color name="border_warning_primary">#FFE5B4</color>
+    <color name="border_danger_primary">#FF4E4A</color>
 </resources>
