@@ -11,21 +11,21 @@ object ButtonColor {
         val icon = Icon
 
         object  Background {
-            val primary: Color get() = Color(0xFF274337)
-            val secondary: Color get() = Color(0xFF3D956A)
-            val disabled: Color get() = Color(0xFF6BD0BB)
+            val primary: Color get() = Brand900
+            val secondary: Color get() = Brand700
+            val disabled: Color get() = Brand100
         }
 
         object Text {
-            val primaryOn: Color get() = Color(0xFFE8F8F0)
-            val secondaryOn: Color get() = Color(0xFF4BB27D)
-            val disabledOn: Color get() = Color(0xFF83DCB0)
+            val primaryOn: Color get() = Brand50
+            val secondaryOn: Color get() = Brand600
+            val disabledOn: Color get() = Brand300
         }
 
         object Icon {
-            val primaryOn: Color get() = Color(0xFFE8F8F0)
-            val secondaryOn: Color get() = Color(0xFF4BB27D)
-            val disabledOn: Color get() = Color(0xFF83DCB0)
+            val primaryOn: Color get() = Brand50
+            val secondaryOn: Color get() = Brand600
+            val disabledOn: Color get() = Brand300
         }
     }
 }

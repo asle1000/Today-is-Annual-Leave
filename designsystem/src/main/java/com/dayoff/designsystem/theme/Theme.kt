@@ -10,48 +10,54 @@ import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
+import com.dayoff.designsystem.theme.colors.BackgroundColor
+import com.dayoff.designsystem.theme.colors.BorderColor
+import com.dayoff.designsystem.theme.colors.TextColor
 
-private val LightColorScheme = lightColorScheme(
-    primary = Color(0xFF60D194),
-    onPrimary = Color(0xFFE8F8F0),
-    secondary = Color(0xFF6BD0BB),
-    onSecondary = Color(0xFF4BB27D),
-    tertiary = Color(0xFFE8F8F0),
-    onTertiary = Color(0xFFE8F8F0),
-    background = Color(0xFFFFFFFF),
-    onBackground = Color(0xFF020617),
-    surface = Color(0xFFF8F8FC),
-    onSurface = Color(0xFF020617),
-    error = Color(0xFFFFE1E2),
-    onError = Color(0xFFDC2626),
-    surfaceVariant = Color(0xFFFFF1F9),
-    onSurfaceVariant = Color(0xFF334155),
-    outline = Color(0xFFFFF1F9),
-    outlineVariant = Color(0xFFE2E8F0)
+val LightColorScheme = lightColorScheme(
+    primary = BackgroundColor.brand.primary, // 앱의 주요 색상 (버튼 등)
+    onPrimary = TextColor.brand.primaryOn, // primary 위 텍스트/아이콘
+    secondary = BackgroundColor.brand.secondary, // 보조 색상 (FAB, Tab 등)
+    onSecondary = TextColor.brand.secondaryOn, // secondary 위 텍스트/아이콘
+    tertiary = BackgroundColor.brand.tertiary, // 강조 색상 (알림 등)
+    onTertiary = TextColor.surface.primaryOn, // tertiary 위 텍스트
+    background = BackgroundColor.base.primary, // 앱 배경 (Scaffold 등)
+    onBackground = TextColor.surface.primary, // 배경 위 본문 텍스트
+    surface = BackgroundColor.surface.primary, // 카드, 시트, Dialog 등
+    onSurface = TextColor.surface.primary, // surface 위 텍스트
+    error = BackgroundColor.danger.primary, // 에러 상태
+    onError = TextColor.danger.primaryOn, // 에러 위 텍스트
+    outline = BorderColor.surface.primary, // 텍스트 필드 등 경계선
+    surfaceVariant = BackgroundColor.surface.secondary, // 보조 surface
+    onSurfaceVariant = TextColor.surface.secondary, // 보조 surface 텍스트
+    inverseSurface = BackgroundColor.surface.tertiary, // 반전 surface (예: dark top bar)
+    inverseOnSurface = TextColor.surface.tertiary, // 반전 surface 위 텍스트
+    inversePrimary = BackgroundColor.brand.overlay, // 대비 강조용 배경
 )
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Color(0xFF60D194),
-    onPrimary = Color(0xFFE8F8F0),
-    secondary = Color(0xFF6BD0BB),
-    onSecondary = Color(0xFF4BB27D),
-    tertiary = Color(0xFFE8F8F0),
-    onTertiary = Color(0xFFE8F8F0),
-    background = Color(0xFFFFFFFF),
-    onBackground = Color(0xFF020617),
-    surface = Color(0xFFF8F8FC),
-    onSurface = Color(0xFF020617),
-    error = Color(0xFFFFE1E2),
-    onError = Color(0xFFDC2626),
-    surfaceVariant = Color(0xFFFFF1F9),
-    onSurfaceVariant = Color(0xFF334155),
-    outline = Color(0xFFFFF1F9),
-    outlineVariant = Color(0xFFE2E8F0)
+    primary = BackgroundColor.brand.primary, // 앱의 주요 색상 (버튼 등)
+    onPrimary = TextColor.brand.primaryOn, // primary 위 텍스트/아이콘
+    secondary = BackgroundColor.brand.secondary, // 보조 색상 (FAB, Tab 등)
+    onSecondary = TextColor.brand.secondaryOn, // secondary 위 텍스트/아이콘
+    tertiary = BackgroundColor.brand.tertiary, // 강조 색상 (알림 등)
+    onTertiary = TextColor.surface.primaryOn, // tertiary 위 텍스트
+    background = BackgroundColor.base.primary, // 앱 배경 (Scaffold 등)
+    onBackground = TextColor.surface.primary, // 배경 위 본문 텍스트
+    surface = BackgroundColor.surface.primary, // 카드, 시트, Dialog 등
+    onSurface = TextColor.surface.primary, // surface 위 텍스트
+    error = BackgroundColor.danger.primary, // 에러 상태
+    onError = TextColor.danger.primaryOn, // 에러 위 텍스트
+    outline = BorderColor.surface.primary, // 텍스트 필드 등 경계선
+    surfaceVariant = BackgroundColor.surface.secondary, // 보조 surface
+    onSurfaceVariant = TextColor.surface.secondary, // 보조 surface 텍스트
+    inverseSurface = BackgroundColor.surface.tertiary, // 반전 surface (예: dark top bar)
+    inverseOnSurface = TextColor.surface.tertiary, // 반전 surface 위 텍스트
+    inversePrimary = BackgroundColor.brand.overlay, // 대비 강조용 배경
 )
 
 @Composable
@@ -67,6 +73,8 @@ fun TodayIsAnnualLeaveTheme(
         if (darkTheme) DarkColorScheme else LightColorScheme
     }
 
+    val typographyScheme = LocalTialTypes.current
+
     val view = LocalView.current
     if (!view.isInEditMode) {
         SideEffect {
@@ -78,7 +86,7 @@ fun TodayIsAnnualLeaveTheme(
 
     MaterialTheme(
         colorScheme = colorScheme,
-        typography = Typography,
+        typography = typographyScheme,
         content = content
     )
 } 

@@ -1,6 +1,7 @@
 package com.dayoff.designsystem.theme
 
 import androidx.compose.material3.Typography
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -34,4 +35,8 @@ val Typography = Typography().copy(
     labelLarge = Typography().labelLarge.copy(fontFamily = pretendard),
     labelMedium = Typography().labelMedium.copy(fontFamily = pretendard),
     labelSmall = Typography().labelSmall.copy(fontFamily = pretendard),
-) 
+)
+
+val LocalTialTypes = staticCompositionLocalOf {
+    Typography
+}

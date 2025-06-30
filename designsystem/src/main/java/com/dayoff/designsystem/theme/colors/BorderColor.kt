@@ -12,34 +12,34 @@ object BorderColor {
     val danger = Danger
 
     object Base {
-        val input: Color get() = Color(0xFFE2E8F0)
+        val input: Color get() = Slate200
     }
     
     object Surface {
-        val primary: Color get() = Color(0xFFFFF1F9)
-        val secondary: Color get() = Color(0xFFE2E8F0)
-        val tertiary: Color get() = Color(0xFFCBD5E1)
+        val primary: Color get() = Slate100
+        val secondary: Color get() = Slate200
+        val tertiary: Color get() = Slate300
     }
     
     object Brand {
-        val primary: Color get() = Color(0xFF60D194)
-        val secondary: Color get() = Color(0xFF83DCB0)
-        val tertiary: Color get() = Color(0xFFE8F8F0)
+        val primary: Color get() = Brand500
+        val secondary: Color get() = Brand300
+        val tertiary: Color get() = Brand50
     }
     
     object Disabled {
-        val primary: Color get() = Color(0xFFE2E8F0)
+        val primary: Color get() = Slate200
     }
     
     object Success {
-        val primary: Color get() = Color(0xFF3B8216)
+        val primary: Color get() = Blue500
     }
     
     object Warning {
-        val primary: Color get() = Color(0xFFF59E0B)
+        val primary: Color get() = Amber500
     }
     
     object Danger {
-        val primary: Color get() = Color(0xFFEF4444)
+        val primary: Color get() = Red500
     }
 }
