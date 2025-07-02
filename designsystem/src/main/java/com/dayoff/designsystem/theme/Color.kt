@@ -41,7 +41,8 @@ import com.dayoff.designsystem.theme.colors.TialWarningTextColors
 val tialLightColors = TialColors(
     background = TialBackgroundColors(
         base = TialBaseBackgroundColors(
-            primary = BackgroundColor.base.primary
+            primary = BackgroundColor.base.primary,
+            white = BackgroundColor.base.white
         ),
         brand = TialBrandBackgroundColors(
             primary = BackgroundColor.brand.primary,

@@ -22,7 +22,8 @@ data class TialBackgroundColors(
 )
 
 data class TialBaseBackgroundColors(
-    val primary: Color
+    val primary: Color,
+    val white: Color
 )
 
 data class TialBrandBackgroundColors(

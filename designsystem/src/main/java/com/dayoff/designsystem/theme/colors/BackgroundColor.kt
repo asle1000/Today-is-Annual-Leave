@@ -14,6 +14,7 @@ object BackgroundColor {
 
     object Base {
         val primary: Color get() = BaseWhite
+        val white: Color get() = BaseWhite
     }
 
     object Brand {
