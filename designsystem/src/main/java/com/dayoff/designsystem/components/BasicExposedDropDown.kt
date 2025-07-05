@@ -48,6 +48,18 @@ import com.dayoff.designsystem.theme.LocalTialColors
 import com.dayoff.designsystem.theme.LocalTialShapes
 import com.dayoff.designsystem.theme.LocalTialTypes
 
+/**
+ * Basic exposed dropdown
+ *
+ * @param modifier
+ * @param hint
+ * @param items
+ * @param selectedOption
+ * @param onItemSelected
+ * @param enabled
+ * @param isError
+ * @receiver
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BasicExposedDropdown(

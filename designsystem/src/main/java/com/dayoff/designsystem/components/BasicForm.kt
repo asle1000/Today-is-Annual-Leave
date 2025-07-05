@@ -29,6 +29,18 @@ import com.dayoff.designsystem.theme.LocalTialTypes
  *  Created by KyunghyunPark at 2025. 6. 30.
 
  */
+
+/**
+ * Basic form
+ *
+ * @param modifier
+ * @param label
+ * @param isRequired
+ * @param errorMessage
+ * @param infoMessage
+ * @param content
+ * @receiver
+ */
 @Composable
 fun BasicForm(
     modifier: Modifier = Modifier,

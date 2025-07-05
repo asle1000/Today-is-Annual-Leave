@@ -26,6 +26,23 @@ import com.dayoff.designsystem.theme.LocalTialTypes
  *  Created by KyunghyunPark at 2025. 7. 2.
 
  */
+
+/**
+ * Basic text field
+ *
+ * @param modifier
+ * @param value
+ * @param onValueChange
+ * @param placeholder
+ * @param isError
+ * @param enabled
+ * @param readOnly
+ * @param singleLine
+ * @param keyboardOptions
+ * @param keyboardActions
+ * @param interactionSource
+ * @receiver
+ */
 @Composable
 fun BasicTextField(
     modifier: Modifier = Modifier,
