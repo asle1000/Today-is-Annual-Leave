@@ -27,7 +27,7 @@ import com.dayoff.designsystem.theme.LocalTialTypes
 
  */
 @Composable
-fun TialBasicTextField(
+fun BasicTextField(
     modifier: Modifier = Modifier,
     value: String,
     onValueChange: (String) -> Unit,

@@ -10,14 +10,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.tooling.preview.Preview
-import com.dayoff.designsystem.components.TialBasicTextField
+import com.dayoff.designsystem.components.BasicTextField
 
 @Preview(showBackground = true, name = "기본 상태")
 @Composable
 fun PreviewTialTextField_Default() {
     var text by remember { mutableStateOf("") }
 
-    TialBasicTextField(
+    BasicTextField(
         value = text,
         onValueChange = { text = it },
         placeholder = "이름을 입력하세요"
@@ -35,7 +35,7 @@ fun PreviewTialTextFieldFocused() {
         interactionSource.tryEmit(FocusInteraction.Focus())
     }
 
-    TialBasicTextField(
+    BasicTextField(
         value = text,
         onValueChange = { text = it },
         placeholder = "이름을 입력하세요",
@@ -49,7 +49,7 @@ fun PreviewTialTextFieldError() {
     var text by remember { mutableStateOf("너무 긴 입력입니다") }
 
     Column {
-        TialBasicTextField(
+        BasicTextField(
             value = text,
             onValueChange = { text = it },
             placeholder = "이름을 입력하세요",
@@ -61,7 +61,7 @@ fun PreviewTialTextFieldError() {
 @Preview(showBackground = true, name = "비활성화 상태")
 @Composable
 fun PreviewTialTextFieldDisabled() {
-    TialBasicTextField(
+    BasicTextField(
         value = "변경 불가",
         onValueChange = {},
         enabled = false,
