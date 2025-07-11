@@ -48,7 +48,8 @@ data class TialSuccessBackgroundColors(
 )
 
 data class TialWarningBackgroundColors(
-    val primary: Color
+    val primary: Color,
+    val default: Color,
 )
 
 data class TialDangerBackgroundColors(

@@ -13,9 +13,8 @@
         android:theme="@style/Theme.TodayIsAnnualLeave"
         tools:targetApi="31">
         <activity
-            android:name="com.dayoff.MainActivity"
+            android:name="com.dayoff.manager.MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
             android:theme="@style/Theme.TodayIsAnnualLeave">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

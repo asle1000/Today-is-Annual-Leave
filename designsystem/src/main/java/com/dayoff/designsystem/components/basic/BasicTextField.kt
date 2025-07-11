@@ -1,4 +1,4 @@
-package com.dayoff.designsystem.components
+package com.dayoff.designsystem.components.basic
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border

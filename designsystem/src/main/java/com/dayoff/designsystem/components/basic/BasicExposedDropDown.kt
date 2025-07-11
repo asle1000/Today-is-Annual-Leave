@@ -1,4 +1,4 @@
-package com.dayoff.designsystem.components
+package com.dayoff.designsystem.components.basic
 
 import android.util.Log
 import androidx.compose.animation.core.Animatable

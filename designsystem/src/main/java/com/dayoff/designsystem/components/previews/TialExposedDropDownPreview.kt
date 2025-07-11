@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.dayoff.designsystem.components.BasicExposedDropdown
+import com.dayoff.designsystem.components.basic.BasicExposedDropdown
 
 /**
  *  Created by KyunghyunPark at 2025. 7. 2.

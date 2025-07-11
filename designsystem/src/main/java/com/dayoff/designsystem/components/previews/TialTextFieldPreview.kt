@@ -10,7 +10,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.tooling.preview.Preview
-import com.dayoff.designsystem.components.BasicTextField
+import com.dayoff.designsystem.components.basic.BasicTextField
 
 @Preview(showBackground = true, name = "기본 상태")
 @Composable

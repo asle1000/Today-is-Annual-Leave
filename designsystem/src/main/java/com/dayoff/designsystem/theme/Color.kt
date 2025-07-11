@@ -62,7 +62,8 @@ val tialLightColors = TialColors(
             primary = BackgroundColor.success.primary
         ),
         warning = TialWarningBackgroundColors(
-            primary = BackgroundColor.warning.primary
+            primary = BackgroundColor.warning.primary,
+            default = BackgroundColor.warning.default
         ),
         danger = TialDangerBackgroundColors(
             primary = BackgroundColor.danger.primary

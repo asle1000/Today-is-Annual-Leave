@@ -40,6 +40,7 @@ object BackgroundColor {
 
     object Warning {
         val primary: Color get() = Amber50
+        val default: Color get() = Amber500
     }
 
     object Danger {
