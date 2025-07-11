@@ -1,6 +1,7 @@
 package com.dayoff.designsystem.components.calendar
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -29,6 +30,7 @@ fun DayCell(
     day: Int,
     cellType: DayCellType = DayCellType.ENABLED,
     indicatorType: DayCellIndicatorType = DayCellIndicatorType.NONE,
+    onClick: () -> Unit = {},
 ) {
     val color = LocalTialColors.current
     val type = LocalTialTypes.current
@@ -54,12 +56,15 @@ fun DayCell(
             modifier = Modifier
                 .size(size = 28.dp)
                 .clip(shape = CircleShape)
-                .background(color = bgColor),
+                .background(color = bgColor)
+                .clickable(enabled = cellType != DayCellType.DISABLED, onClick = onClick),
             contentAlignment = Alignment.Center,
         ) {
-            Text(
-                text = day.toString(), color = textColor, style = type.bodySmall
-            )
+            if (day != 0) {
+                Text(
+                    text = day.toString(), color = textColor, style = type.bodySmall
+                )
+            }
         }
         DayCellIndicator(indicatorType = indicatorType)
     }
@@ -98,8 +103,9 @@ fun DayCellIndicator(
         )
 
         if (showLabel) {
+
             Spacer(modifier = Modifier.width(width = 6.dp))
-            Text(indicatorType.label, style = type.bodySmall)
+            Text(indicatorType.label, color = color.text.surface.tertiary, style = type.bodySmall)
         }
     }
 }

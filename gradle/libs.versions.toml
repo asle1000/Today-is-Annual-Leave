@@ -12,6 +12,7 @@ compose-compiler = "1.5.10"
 kotlinx-coroutines = "1.7.3"
 javax-inject = "1"
 lottie = "6.0.0"
+timber = "5.0.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -33,6 +34,8 @@ androidx-compose-runtime = { group = "androidx.compose.runtime", name = "runtime
 kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
 javax-inject = { group = "javax.inject", name = "javax.inject", version.ref = "javax-inject" }
 lottie-compose = { group = "com.airbnb.android", name = "lottie-compose", version.ref = "lottie" }
+
+timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
