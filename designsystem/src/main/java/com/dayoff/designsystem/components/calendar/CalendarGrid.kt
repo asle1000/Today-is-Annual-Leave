@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.dayoff.designsystem.model.DayCellIndicatorType
 import com.dayoff.designsystem.model.DayCellType
+import com.dayoff.designsystem.model.DayOfWeek
 import java.time.LocalDate
 import java.time.YearMonth
 
@@ -32,8 +33,10 @@ fun CalendarGrid(
     val weeks = days.chunked(7)
     Column(modifier = modifier) {
         weeks.forEach { week ->
-            Row(modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
                 week.forEach { day ->
                     DayCell(
                         day = day.day,
@@ -44,7 +47,7 @@ fun CalendarGrid(
                 }
             }
 
-            if(weeks.last() != week) Spacer(modifier = Modifier.height(8.dp))
+            if (weeks.last() != week) Spacer(modifier = Modifier.height(8.dp))
         }
     }
 }
@@ -53,20 +56,28 @@ fun makeCalendarDaysForMonth(
     year: Int,
     month: Int,
     today: LocalDate = LocalDate.now(),
+    startDayOfWeek: DayOfWeek,
     indicatorResolver: (LocalDate) -> DayCellIndicatorType = { DayCellIndicatorType.NONE }
 ): List<CalendarDay> {
     val yearMonth = YearMonth.of(year, month)
-    return generateCalendarDays(yearMonth, today, indicatorResolver)
+    return generateCalendarDays(
+        yearMonth = yearMonth,
+        today = today,
+        startDayOfWeek = startDayOfWeek,
+        indicatorResolver = indicatorResolver,
+    )
 }
 
 private fun generateCalendarDays(
     yearMonth: YearMonth,
     today: LocalDate,
+    startDayOfWeek: DayOfWeek,
     indicatorResolver: (LocalDate) -> DayCellIndicatorType
 ): List<CalendarDay> {
     val firstDayOfMonth = yearMonth.atDay(1)
     val lastDayOfMonth = yearMonth.atEndOfMonth()
-    val firstDayOfWeek = firstDayOfMonth.dayOfWeek.value % 7 // 일요일=0, 월요일=1 ...
+
+    val firstDayOfWeek = ((firstDayOfMonth.dayOfWeek.value - startDayOfWeek.ordinal) + 7) % 7
 
     val days = mutableListOf<CalendarDay>()
 

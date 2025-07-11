@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.dayoff.designsystem.model.DayCellIndicatorType
+import com.dayoff.designsystem.model.DayOfWeek
 import com.dayoff.designsystem.theme.LocalTialColors
 import com.dayoff.designsystem.theme.LocalTialShapes
 import java.time.LocalDate
@@ -19,7 +20,9 @@ fun MonthCalendar(
     modifier: Modifier = Modifier,
     yearMonth: YearMonth,
     today: LocalDate = LocalDate.now(),
+    startDayOfWeek: DayOfWeek = DayOfWeek.MONDAY,
     indicatorResolver: (LocalDate) -> DayCellIndicatorType = { DayCellIndicatorType.NONE },
+    onDayClick: (Int, MonthType) -> Unit = { _, _ -> },
     onPrevMonth: () -> Unit = {},
     onNextMonth: () -> Unit = {},
     onRefresh: () -> Unit = {},
@@ -31,6 +34,7 @@ fun MonthCalendar(
         year = yearMonth.year,
         month = yearMonth.monthValue,
         today = today,
+        startDayOfWeek = startDayOfWeek,
         indicatorResolver = indicatorResolver
     )
     Column(
@@ -51,11 +55,11 @@ fun MonthCalendar(
 
         Spacer(Modifier.height(16.dp))
 
-        CalendarDayOfWeek()
+        CalendarDayOfWeek(startDayOfWeek = startDayOfWeek)
 
         Spacer(Modifier.height(16.dp))
 
-        CalendarGrid(days = days, onDayClick = { _, _ -> })
+        CalendarGrid(days = days, onDayClick = onDayClick)
 
         Spacer(modifier = Modifier.height(16.dp))
 
