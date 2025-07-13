@@ -1,7 +1,10 @@
 package com.dayoff.manager
 
 import android.app.Application
+import com.dayoff.di.AppModules
 import org.jetbrains.annotations.NotNull
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.startKoin
 import timber.log.Timber
 
 /**
@@ -11,6 +14,11 @@ import timber.log.Timber
 class TialApplication: Application() {
     override fun onCreate() {
         super.onCreate()
+
+        startKoin {
+            androidContext(this@TialApplication)
+            AppModules.all
+        }
 
         if (BuildConfig.DEBUG) {
             Timber.plant(object : Timber.DebugTree() {
