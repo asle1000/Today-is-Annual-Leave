@@ -17,4 +17,5 @@ dependencyResolutionManagement {
 rootProject.name = "TodayIsAnnualLeave"
 include(":app")
 include(":designsystem")
+include(":data")
 include(":di")

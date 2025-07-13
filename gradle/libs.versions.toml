@@ -16,6 +16,10 @@ timber = "5.0.1"
 
 koin = "4.0.3"
 
+firebase = "33.16.0"
+firebase-common-ktx = "22.0.0"
+
+startup = "1.2.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -38,6 +42,11 @@ kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-
 javax-inject = { group = "javax.inject", name = "javax.inject", version.ref = "javax-inject" }
 lottie-compose = { group = "com.airbnb.android", name = "lottie-compose", version.ref = "lottie" }
 
+# Firebase
+firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase" }
+firebase-common-ktx = { group = "com.google.firebase", name = "firebase-common-ktx" }
+firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore" }
+
 # DI - Koin
 koin-bom = { group = "io.insert-koin", name = "koin-bom", version.ref = "koin" }
 koin-core = { group = "io.insert-koin", name = "koin-core" }
@@ -46,6 +55,7 @@ koin-compose = { group = "io.insert-koin", name = "koin-androidx-compose" }
 
 # Util - logger
 timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
+startup = { group = "androidx.startup", name = "startup-runtime", version.ref = "startup" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
