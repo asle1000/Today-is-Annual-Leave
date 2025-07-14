@@ -33,13 +33,15 @@ android {
 }
 
 dependencies {
+    implementation(platform(libs.koin.bom))
+    implementation(libs.bundles.koin)
+
     implementation(libs.ktor.client.core)
     implementation(libs.ktor.client.okhttp)
     implementation(libs.ktor.client.content.negotiation)
-    implementation(libs.ktor.serialization.moshi)
+    implementation(libs.ktor.serialization.kotlinx.json)
 
-    implementation(libs.moshi)
-    implementation(libs.moshi.kotlin)
+    implementation(libs.kotlinx.serialization.json)
 
     implementation(libs.ktor.client.logging)
     implementation(libs.timber)
