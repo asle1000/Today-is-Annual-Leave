@@ -21,17 +21,35 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.lifecycleScope
+import com.dayoff.data.datasource.CalendarEventRemoteDataSource
+import com.dayoff.data.datasource.CalendarEventRemoteDataSourceImpl
 import com.dayoff.designsystem.components.calendar.MonthCalendar
 import com.dayoff.designsystem.model.DayCellIndicatorType
+import kotlinx.coroutines.launch
+import timber.log.Timber
 import java.time.LocalDate
 import java.time.YearMonth
+import org.koin.android.ext.android.inject
 
 class MainActivity : ComponentActivity() {
+    private val calendarEventRemoteDataSource: CalendarEventRemoteDataSource by inject()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        lifecycleScope.launch {
+            val res = calendarEventRemoteDataSource.fetchCalendarEvent()
+
+        }
+
+
         setContent {
             Surface(
-                modifier = Modifier.fillMaxSize().background(Color.White).padding(horizontal = 12.dp),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color.White)
+                    .padding(horizontal = 12.dp),
                 color = Color.White
             ) {
                 CalendarScreen()

@@ -18,15 +18,18 @@ compose-bom = "2025.06.01"
 compose-compiler = "1.5.10"
 kotlinx-coroutines = "1.7.3"
 javax-inject = "1"
+google-services = "4.4.1"
 lottie = "6.0.0"
+
 timber = "5.0.1"
 
 koin = "4.0.3"
 
 firebase = "33.16.0"
-firebase-common-ktx = "22.0.0"
 
 startup = "1.2.0"
+appcompat = "1.6.1"
+material = "1.10.0"
 
 
 [libraries]
@@ -54,7 +57,6 @@ javax-inject = { group = "javax.inject", name = "javax.inject", version.ref = "j
 # Firebase
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase" }
 firebase-common-ktx = { group = "com.google.firebase", name = "firebase-common-ktx" }
-firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore" }
 
 # DI - Koin
 koin-bom = { group = "io.insert-koin", name = "koin-bom", version.ref = "koin" }
@@ -71,16 +73,21 @@ ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "kto
 # Kotlinx Serialization
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization-json" }
 
-# Util - logger
+# Util
+ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor-serialization-kotlinx-json" }
 timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
 startup = { group = "androidx.startup", name = "startup-runtime", version.ref = "startup" }
 lottie-compose = { group = "com.airbnb.android", name = "lottie-compose", version.ref = "lottie" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+google-services = { id = "com.google.gms.google-services", version.ref = "google-services" }
 
 [bundles]
 koin = ["koin-core", "koin-android", "koin-compose"]

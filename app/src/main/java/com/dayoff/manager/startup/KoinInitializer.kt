@@ -13,10 +13,8 @@ import org.koin.core.context.startKoin
 class KoinInitializer : Initializer<Unit> {
     override fun create(context: Context) {
         startKoin {
-            androidContext(context)
-            modules(
-                AppModules.all
-            )
+            androidContext(androidContext = context)
+            modules(modules = AppModules.all)
         }
     }
 

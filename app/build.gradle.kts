@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.google.services)
 }
 
 android {
@@ -55,6 +56,7 @@ composeCompiler {
 }
 
 dependencies {
+    implementation(project(":data"))
     implementation(project(":di"))
     implementation(project(":designsystem"))
 
@@ -66,8 +68,20 @@ dependencies {
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
-    implementation(libs.timber)
 
+    // Firebase
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.common.ktx)
+
+    // DI - koin
+    implementation(project.dependencies.platform(libs.koin.bom))
+    implementation(libs.bundles.koin)
+
+    // Util
+    implementation(libs.timber)
+    implementation(libs.startup)
+
+    // Test
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.androidx.test.espresso.core)
@@ -76,3 +90,5 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
 }
+
+apply(plugin = "com.google.gms.google-services")

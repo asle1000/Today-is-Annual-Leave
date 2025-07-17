@@ -1,10 +1,11 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
-    namespace = "com.dayoff.core.network"
+    namespace = "com.dayoff.core.model"
     compileSdk = 35
 
     defaultConfig {
@@ -33,18 +34,5 @@ android {
 }
 
 dependencies {
-    implementation(project(":model"))
-
-    implementation(platform(libs.koin.bom))
-    implementation(libs.bundles.koin)
-
-    implementation(libs.ktor.client.core)
-    implementation(libs.ktor.client.okhttp)
-    implementation(libs.ktor.client.content.negotiation)
-    implementation(libs.ktor.serialization.kotlinx.json)
-    implementation(libs.ktor.client.logging)
-
     implementation(libs.kotlinx.serialization.json)
-
-    implementation(libs.timber)
 }
