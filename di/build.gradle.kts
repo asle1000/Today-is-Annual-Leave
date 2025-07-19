@@ -35,6 +35,7 @@ android {
 dependencies {
     implementation(project(":data"))
     implementation(project(":network"))
+    implementation(project(":db"))
 
     implementation(platform(libs.koin.bom))
     implementation(libs.bundles.koin)

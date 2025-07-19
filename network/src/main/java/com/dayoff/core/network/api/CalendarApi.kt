@@ -1,6 +1,6 @@
 package com.dayoff.core.network.api
 
-import com.dayoff.core.model.calendar.CalendarEventData
+import com.dayoff.core.model.calendar.CalendarEventDto
 import com.dayoff.core.network.NetworkClient
 import io.ktor.client.call.*
 import io.ktor.client.request.*
@@ -14,7 +14,7 @@ class CalendarApi {
     private val client = NetworkClient.httpClient
     private val baseUrl = "https://holiday-json-repo.pages.dev"
 
-    suspend fun fetchCalendarEventList(year: Int): List<CalendarEventData> {
+    suspend fun fetchCalendarEventList(year: Int): List<CalendarEventDto> {
         return client.get("$baseUrl/holidays/$year.json") {
             contentType(ContentType.Application.Json)
         }.body()

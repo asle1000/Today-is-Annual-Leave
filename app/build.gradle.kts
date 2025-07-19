@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.google.services)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -55,6 +56,10 @@ composeCompiler {
     includeSourceInformation = true
 }
 
+configurations.all {
+    exclude(group = "com.intellij", module = "annotations")
+}
+
 dependencies {
     implementation(project(":data"))
     implementation(project(":di"))
@@ -89,6 +94,7 @@ dependencies {
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
+    implementation(libs.annotations)
 }
 
 apply(plugin = "com.google.gms.google-services")
