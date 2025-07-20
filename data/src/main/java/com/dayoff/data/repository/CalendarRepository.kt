@@ -3,18 +3,23 @@ package com.dayoff.data.repository
 import com.dayoff.data.datasource.CalendarEventLocalDatasource
 import com.dayoff.data.datasource.CalendarEventRemoteDataSource
 import com.dayoff.core.model.calendar.CalendarEventDto
+import timber.log.Timber
 
 class CalendarRepository(
-    private val remote: CalendarEventRemoteDataSource,
-    private val local: CalendarEventLocalDatasource
+    private val calendarEventRemoteDataSource: CalendarEventRemoteDataSource,
+    private val calendarEventLocalDatasource: CalendarEventLocalDatasource,
 ) {
     /**
+     * TODO Error handling
      * Fetch remote month days
      *
      * @param year
      * @return
      */
     suspend fun fetchCalendarEvents(year: Int): List<CalendarEventDto> {
-        return remote.fetchCalendarEvent(year)
+        val response = calendarEventRemoteDataSource.fetchCalendarEvent(year = year)
+        calendarEventLocalDatasource.saveYearEvents(year = year, yearEvents = response)
+        Timber.d("fetchCalendarEvents: \n${response.joinToString("\n")}")
+        return response
     }
 } 

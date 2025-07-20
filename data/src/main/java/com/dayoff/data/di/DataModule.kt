@@ -20,7 +20,7 @@ val dataModule = module {
         )
     }
 
-    single<CalendarEventLocalDatasource> { CalendarEventLocalDatasource() }
+    single<CalendarEventLocalDatasource> { CalendarEventLocalDatasource(calendarEventDao = get()) }
 
-    single { CalendarRepository(remote = get(), local = get()) }
+    single { CalendarRepository(calendarEventRemoteDataSource = get(), calendarEventLocalDatasource = get()) }
 }

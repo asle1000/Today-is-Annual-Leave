@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -22,24 +21,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.lifecycleScope
-import com.dayoff.data.datasource.CalendarEventRemoteDataSource
-import com.dayoff.data.datasource.CalendarEventRemoteDataSourceImpl
+import com.dayoff.data.repository.CalendarRepository
 import com.dayoff.designsystem.components.calendar.MonthCalendar
 import com.dayoff.designsystem.model.DayCellIndicatorType
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import java.time.LocalDate
 import java.time.YearMonth
 import org.koin.android.ext.android.inject
 
 class MainActivity : ComponentActivity() {
-    private val calendarEventRemoteDataSource: CalendarEventRemoteDataSource by inject()
+    private val repository: CalendarRepository by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         lifecycleScope.launch {
-            val res = calendarEventRemoteDataSource.fetchCalendarEvent()
+            val res = repository.fetchCalendarEvents(2025)
 
         }
 
