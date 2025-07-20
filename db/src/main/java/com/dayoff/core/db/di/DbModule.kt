@@ -9,10 +9,10 @@ import org.koin.dsl.module
 val dbModule = module {
     single {
         Room.databaseBuilder(
-            androidContext(),
-            TialDatabase::class.java,
-            "tial_database"
-        ).build()
+                context = androidContext(),
+                klass = TialDatabase::class.java,
+                name = "tial_database",
+            ).fallbackToDestructiveMigration(dropAllTables = true).build()
     }
     factory<CalendarEventDao> { get<TialDatabase>().calendarEventDao() }
 } 

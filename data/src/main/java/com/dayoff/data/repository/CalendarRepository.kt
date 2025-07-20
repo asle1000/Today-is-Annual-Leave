@@ -7,16 +7,17 @@ import timber.log.Timber
 
 class CalendarRepository(
     private val calendarEventRemoteDataSource: CalendarEventRemoteDataSource,
-    private val calendarEventLocalDatasource: CalendarEventLocalDatasource
+    private val calendarEventLocalDatasource: CalendarEventLocalDatasource,
 ) {
     /**
+     * TODO Error handling
      * Fetch remote month days
      *
      * @param year
      * @return
      */
     suspend fun fetchCalendarEvents(year: Int): List<CalendarEventDto> {
-        val response = calendarEventRemoteDataSource.fetchCalendarEvent(year)
+        val response = calendarEventRemoteDataSource.fetchCalendarEvent(year = year)
         calendarEventLocalDatasource.saveYearEvents(year = year, yearEvents = response)
         Timber.d("fetchCalendarEvents: \n${response.joinToString("\n")}")
         return response

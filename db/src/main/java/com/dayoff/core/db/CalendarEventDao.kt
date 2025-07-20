@@ -16,4 +16,10 @@ interface CalendarEventDao {
 
     @Update
     suspend fun updateEvents(events: List<CalendarEventEntity>)
+
+    @Transaction
+    suspend fun updateYearEvents(year: Int, newEvents: List<CalendarEventEntity>) {
+        deleteByYear(year = year)
+        insertAll(events = newEvents)
+    }
 } 
