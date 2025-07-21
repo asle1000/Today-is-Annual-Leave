@@ -10,6 +10,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.map
 import timber.log.Timber
 
 class CalendarRepository(
@@ -32,19 +33,13 @@ class CalendarRepository(
 
      @OptIn(ExperimentalCoroutinesApi::class)
      fun getCalendarEventsByYear(year: Int, month: Int): Flow<List<CalendarDay>> {
-        return calendarEventLocalDatasource.getCalendarEventsByYear(year = year).flatMapConcat {
-            Timber.d("[TEST] ${it.joinToString("\n")}")
-
-            val a = CalendarEventMapper.mapEntitiesToCalendarDays(
+        return calendarEventLocalDatasource.getCalendarEventsByYear(year = year).map {
+             return@map CalendarEventMapper.mapEntitiesToCalendarDays(
                 year = year,
                 month = month,
                 eventEntities = it,
                 startDayOfWeek = DayOfWeek.MONDAY
             )
-
-            Timber.d("[TEST] aa${a.joinToString("\n")}")
-
-            flowOf(a)
         }
     }
 } 
