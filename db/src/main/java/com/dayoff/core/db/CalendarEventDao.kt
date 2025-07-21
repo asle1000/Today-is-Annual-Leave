@@ -2,11 +2,12 @@ package com.dayoff.core.db
 
 import androidx.room.*
 import com.dayoff.core.db.entity.CalendarEventEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface CalendarEventDao {
     @Query("SELECT * FROM calendar_event WHERE year = :year")
-    suspend fun getEventsByYear(year: Int): List<CalendarEventEntity>
+    fun getEventsByYear(year: Int): Flow<List<CalendarEventEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(events: List<CalendarEventEntity>)

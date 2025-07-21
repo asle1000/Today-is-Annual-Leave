@@ -1,7 +1,7 @@
 package com.dayoff.data.datasource
 
 import com.dayoff.core.network.api.CalendarApi
-import com.dayoff.core.model.calendar.CalendarEventDto
+import com.dayoff.core.network.model.CalendarEventDto
 
 class CalendarEventRemoteDataSourceImpl(
     private val calendarApi: CalendarApi

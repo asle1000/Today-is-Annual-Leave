@@ -9,20 +9,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.dayoff.designsystem.model.DayCellIndicatorType
-import com.dayoff.designsystem.model.DayCellType
-import com.dayoff.designsystem.model.DayOfWeek
-import java.time.LocalDate
-import java.time.YearMonth
-
-enum class MonthType { PREV, CURRENT, NEXT }
-
-data class CalendarDay(
-    val day: Int,
-    val monthType: MonthType,
-    val cellType: DayCellType,
-    val indicatorType: DayCellIndicatorType
-)
+import com.dayoff.core.model.calendar.CalendarDay
+import com.dayoff.core.model.calendar.MonthType
 
 @Composable
 fun CalendarGrid(
@@ -50,73 +38,4 @@ fun CalendarGrid(
             if (weeks.last() != week) Spacer(modifier = Modifier.height(8.dp))
         }
     }
-}
-
-fun makeCalendarDaysForMonth(
-    year: Int,
-    month: Int,
-    today: LocalDate = LocalDate.now(),
-    startDayOfWeek: DayOfWeek,
-    indicatorResolver: (LocalDate) -> DayCellIndicatorType = { DayCellIndicatorType.NONE }
-): List<CalendarDay> {
-    val yearMonth = YearMonth.of(year, month)
-    return generateCalendarDays(
-        yearMonth = yearMonth,
-        today = today,
-        startDayOfWeek = startDayOfWeek,
-        indicatorResolver = indicatorResolver,
-    )
-}
-
-private fun generateCalendarDays(
-    yearMonth: YearMonth,
-    today: LocalDate,
-    startDayOfWeek: DayOfWeek,
-    indicatorResolver: (LocalDate) -> DayCellIndicatorType
-): List<CalendarDay> {
-    val firstDayOfMonth = yearMonth.atDay(1)
-    val lastDayOfMonth = yearMonth.atEndOfMonth()
-
-    val firstDayOfWeek = ((firstDayOfMonth.dayOfWeek.value - startDayOfWeek.ordinal) + 7) % 7
-
-    val days = mutableListOf<CalendarDay>()
-
-    val prevMonth = yearMonth.minusMonths(1)
-    val prevMonthLastDay = prevMonth.atEndOfMonth().dayOfMonth
-    repeat(firstDayOfWeek) { i ->
-        days.add(
-            CalendarDay(
-                day = prevMonthLastDay - firstDayOfWeek + 1 + i,
-                monthType = MonthType.PREV,
-                cellType = DayCellType.DISABLED,
-                indicatorType = DayCellIndicatorType.NONE
-            )
-        )
-    }
-
-    for (day in 1..lastDayOfMonth.dayOfMonth) {
-        val date = yearMonth.atDay(day)
-        days.add(
-            CalendarDay(
-                day = day,
-                monthType = MonthType.CURRENT,
-                cellType = if (date == today) DayCellType.TODAY else DayCellType.ENABLED,
-                indicatorType = indicatorResolver(date)
-            )
-        )
-    }
-
-    val remaining = (7 - days.size % 7).let { if (it == 7) 0 else it }
-    for (day in 1..remaining) {
-        days.add(
-            CalendarDay(
-                day = day,
-                monthType = MonthType.NEXT,
-                cellType = DayCellType.DISABLED,
-                indicatorType = DayCellIndicatorType.NONE
-            )
-        )
-    }
-
-    return days
 }

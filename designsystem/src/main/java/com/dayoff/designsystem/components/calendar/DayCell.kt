@@ -19,8 +19,8 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.dayoff.designsystem.model.DayCellIndicatorType
-import com.dayoff.designsystem.model.DayCellType
+import com.dayoff.core.model.calendar.DayCellIndicatorType
+import com.dayoff.core.model.calendar.DayCellType
 import com.dayoff.designsystem.theme.LocalTialColors
 import com.dayoff.designsystem.theme.LocalTialTypes
 

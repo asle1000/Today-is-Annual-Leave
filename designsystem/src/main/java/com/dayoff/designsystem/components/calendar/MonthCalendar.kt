@@ -8,20 +8,19 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.dayoff.designsystem.model.DayCellIndicatorType
-import com.dayoff.designsystem.model.DayOfWeek
+import com.dayoff.core.model.calendar.CalendarDay
+import com.dayoff.core.model.calendar.DayOfWeek
+import com.dayoff.core.model.calendar.MonthType
 import com.dayoff.designsystem.theme.LocalTialColors
 import com.dayoff.designsystem.theme.LocalTialShapes
-import java.time.LocalDate
 import java.time.YearMonth
 
 @Composable
 fun MonthCalendar(
     modifier: Modifier = Modifier,
+    days: List<CalendarDay>,
     yearMonth: YearMonth,
-    today: LocalDate = LocalDate.now(),
     startDayOfWeek: DayOfWeek = DayOfWeek.MONDAY,
-    indicatorResolver: (LocalDate) -> DayCellIndicatorType = { DayCellIndicatorType.NONE },
     onDayClick: (Int, MonthType) -> Unit = { _, _ -> },
     onPrevMonth: () -> Unit = {},
     onNextMonth: () -> Unit = {},
@@ -30,13 +29,7 @@ fun MonthCalendar(
     val color = LocalTialColors.current
     val shape = LocalTialShapes.current
 
-    val days = makeCalendarDaysForMonth(
-        year = yearMonth.year,
-        month = yearMonth.monthValue,
-        today = today,
-        startDayOfWeek = startDayOfWeek,
-        indicatorResolver = indicatorResolver
-    )
+
     Column(
         modifier = modifier
             .background(

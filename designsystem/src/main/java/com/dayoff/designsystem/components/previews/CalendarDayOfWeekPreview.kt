@@ -8,7 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dayoff.designsystem.components.calendar.CalendarDayOfWeek
-import com.dayoff.designsystem.model.DayOfWeek
+import com.dayoff.core.model.calendar.DayOfWeek
 
 @Preview(showBackground = true)
 @Composable
