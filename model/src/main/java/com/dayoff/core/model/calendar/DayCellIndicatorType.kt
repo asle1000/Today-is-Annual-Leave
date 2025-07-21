@@ -1,4 +1,4 @@
-package com.dayoff.designsystem.model
+package com.dayoff.core.model.calendar
 
 /**
  *  Created by KyunghyunPark at 2025. 7. 6.

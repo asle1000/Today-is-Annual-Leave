@@ -1,6 +1,6 @@
 package com.dayoff.data.datasource
 
-import com.dayoff.core.model.calendar.CalendarEventDto
+import com.dayoff.core.network.model.CalendarEventDto
 
 /**
  *  Created by KyunghyunPark at 2025. 7. 13.

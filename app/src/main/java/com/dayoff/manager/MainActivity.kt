@@ -13,35 +13,39 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.lifecycleScope
+import com.dayoff.core.model.calendar.CalendarDay
 import com.dayoff.data.repository.CalendarRepository
 import com.dayoff.designsystem.components.calendar.MonthCalendar
-import com.dayoff.designsystem.model.DayCellIndicatorType
-import kotlinx.coroutines.launch
-import java.time.LocalDate
-import java.time.YearMonth
 import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
+import java.time.YearMonth
 
 class MainActivity : ComponentActivity() {
     private val repository: CalendarRepository by inject()
 
+    private val viewModel: MainViewModel by viewModel()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        lifecycleScope.launch {
-            val res = repository.fetchCalendarEvents(2025)
-
-        }
-
-
         setContent {
+            val yearRange = (2024..2026).toList()
+
+            val yearMonth by viewModel.yearMonth.collectAsState()
+            val list by viewModel.calendarEvents.collectAsState()
+
+            LaunchedEffect(yearMonth.year) {
+                Timber.d("LaunchedEffect: ${yearMonth.year}")
+                repository.fetchCalendarEvents(yearMonth.year)
+            }
+
             Surface(
                 modifier = Modifier
                     .fillMaxSize()
@@ -49,18 +53,25 @@ class MainActivity : ComponentActivity() {
                     .padding(horizontal = 12.dp),
                 color = Color.White
             ) {
-                CalendarScreen()
+                CalendarScreen(
+                    yearRange = yearRange,
+                    yearMonth = yearMonth,
+                    list = list,
+                    onChanged = viewModel::onYearMonthChanged
+                )
             }
         }
     }
 }
 
 @Composable
-fun CalendarScreen() {
-    val yearRange = (2024..2026).toList()
-    val today = LocalDate.now()
-    var yearMonth by remember { mutableStateOf(YearMonth.of(today.year, today.monthValue)) }
-
+fun CalendarScreen(
+    yearRange: List<Int>,
+    yearMonth: YearMonth,
+    list: List<CalendarDay>,
+    onChanged: (Int, Int) -> Unit,
+) {
+    Timber.d("CalendarScreen: \n${list.joinToString("\n")}")
     Column {
         Row(
             horizontalArrangement = Arrangement.Center,
@@ -69,7 +80,7 @@ fun CalendarScreen() {
             yearRange.forEach { year ->
                 Button(
                     onClick = {
-                        yearMonth = YearMonth.of(year, yearMonth.monthValue)
+                        onChanged(year, yearMonth.monthValue)
                     },
                     modifier = Modifier.padding(horizontal = 4.dp),
                     enabled = yearMonth.year != year
@@ -79,16 +90,19 @@ fun CalendarScreen() {
             }
         }
         MonthCalendar(
+            days = list,
             yearMonth = yearMonth,
-            today = today,
-            indicatorResolver = { date ->
-                DayCellIndicatorType.NONE
-            },
             onPrevMonth = {
-                if (yearMonth.monthValue > 1) yearMonth = yearMonth.minusMonths(1)
+                if (yearMonth.monthValue > 1) {
+                    val yearMonth = yearMonth.minusMonths(1)
+                    onChanged(yearMonth.year, yearMonth.monthValue)
+                }
             },
             onNextMonth = {
-                if (yearMonth.monthValue < 12) yearMonth = yearMonth.plusMonths(1)
+                if (yearMonth.monthValue < 12) {
+                    val yearMonth = yearMonth.plusMonths(1)
+                    onChanged(yearMonth.year, yearMonth.monthValue)
+                }
             },
             onRefresh = {
 

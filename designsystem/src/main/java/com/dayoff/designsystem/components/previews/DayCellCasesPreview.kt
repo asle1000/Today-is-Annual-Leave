@@ -12,10 +12,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.dayoff.core.model.calendar.DayCellIndicatorType
+import com.dayoff.core.model.calendar.DayCellType
 import com.dayoff.designsystem.components.calendar.DayCell
 import com.dayoff.designsystem.components.calendar.DayCellIndicator
-import com.dayoff.designsystem.model.DayCellIndicatorType
-import com.dayoff.designsystem.model.DayCellType
 
 @Preview(showBackground = true)
 @Composable

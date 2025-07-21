@@ -61,6 +61,7 @@ configurations.all {
 }
 
 dependencies {
+    implementation(project(":model"))
     implementation(project(":data"))
     implementation(project(":di"))
     implementation(project(":designsystem"))
@@ -73,6 +74,9 @@ dependencies {
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.androidx.runtime.livedata)
 
     // Firebase
     implementation(platform(libs.firebase.bom))
