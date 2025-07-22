@@ -34,9 +34,9 @@ android {
 }
 
 dependencies {
-    implementation(project(":model"))
-    implementation(project(":network"))
-    implementation(project(":db"))
+    implementation(project(":core:model"))
+    implementation(project(":core:network"))
+    implementation(project(":core:db"))
 
     implementation(platform(libs.koin.bom))
     implementation(libs.bundles.koin)

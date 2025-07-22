@@ -21,7 +21,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.dayoff.core.model.calendar.CalendarDay
 import com.dayoff.data.repository.CalendarRepository
-import com.dayoff.designsystem.components.calendar.MonthCalendar
+import com.dayoff.core.ui.calendar.MonthCalendar
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
@@ -89,7 +89,7 @@ fun CalendarScreen(
                 }
             }
         }
-        MonthCalendar(
+        com.dayoff.core.ui.calendar.MonthCalendar(
             days = list,
             yearMonth = yearMonth,
             onPrevMonth = {

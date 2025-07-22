@@ -61,10 +61,10 @@ configurations.all {
 }
 
 dependencies {
-    implementation(project(":model"))
+    implementation(project(":core:model"))
     implementation(project(":data"))
     implementation(project(":di"))
-    implementation(project(":designsystem"))
+    implementation(project(":core:ui"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

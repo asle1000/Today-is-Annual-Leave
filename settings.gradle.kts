@@ -16,9 +16,12 @@ dependencyResolutionManagement {
 
 rootProject.name = "TodayIsAnnualLeave"
 include(":app")
-include(":designsystem")
+
 include(":data")
 include(":di")
-include(":network")
-include(":model")
-include(":db")
+
+include(":core:designsystem")
+include(":core:network")
+include(":core:db")
+include(":core:model")
+include(":core:ui")
