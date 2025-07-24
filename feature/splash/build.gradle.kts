@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.compose.compiler)
 }
 
@@ -10,6 +11,19 @@ android {
 
     defaultConfig {
         minSdk = 28
+
+        val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
+
+        buildConfigField(
+            "int",
+            "APP_VERSION_CODE",
+            libs.findVersion("app-version-code").get().requiredVersion.toInt().toString()
+        )
+        buildConfigField(
+            "String",
+            "APP_VERSION_NAME",
+            "\"${libs.findVersion("app-version-name").get().requiredVersion}\""
+        )
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -51,7 +65,6 @@ dependencies {
     implementation(project(":core:designsystem"))
     implementation(project(":core:ui"))
     implementation(project(":data"))
-    implementation(project(":di"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -70,8 +83,14 @@ dependencies {
     implementation(project.dependencies.platform(libs.koin.bom))
     implementation(libs.bundles.koin)
 
+    // Firebase
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.remote.config.ktx)
+    implementation(libs.firebase.analytics.ktx)
+
     // Util
     implementation(libs.timber)
+    implementation(libs.kotlinx.serialization.json)
 
     // Test
     testImplementation(libs.junit)

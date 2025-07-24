@@ -6,12 +6,12 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -24,30 +24,41 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.dayoff.designsystem.theme.LocalTialColors
-import com.dayoff.designsystem.theme.LocalTialTypes
-import kotlinx.coroutines.delay
+import org.koin.androidx.compose.koinViewModel
+import timber.log.Timber
 
 /**
  *  Created by KyunghyunPark at 2025. 7. 24.
  *
  * Splash Screen
- * TODO 잔여 작업
- *  1. Firebase RemoteConfig -> 버전 업데이트
- *  2. Asset 파일 업로드
+ * (w. remoteConfig for contained latest app version)
  */
 @Preview(showBackground = true)
 @Composable
 fun TialSplashScreen(
+    viewModel: TialSplashViewModel = koinViewModel<TialSplashViewModel>(),
     onNavigateToHome: () -> Unit = { }
 ) {
-    BuildConfig.BUILD_TYPE
-    LaunchedEffect(Unit) {
-        delay(1500)
-        onNavigateToHome()
-    }
-
     val color = LocalTialColors.current
+    val appVersion by viewModel.appVersionState.collectAsStateWithLifecycle()
+
+    LaunchedEffect(appVersion) {
+        val versionCode = appVersion?.appVersionCode ?: run {
+            Timber.tag("Screen.Splash").d("Not Fetch Version. Wait")
+            return@LaunchedEffect
+        }
+
+        Timber.tag("Screen.Splash").d("Fetch Version($appVersion)")
+
+        if(BuildConfig.APP_VERSION_CODE < versionCode) {
+            Timber.tag("Screen.Splash").d("New Version. Go to Update")
+        } else {
+            Timber.tag("Screen.Splash").d("Current Version. Go to Home")
+            onNavigateToHome()
+        }
+    }
 
     Surface(
         modifier = Modifier
