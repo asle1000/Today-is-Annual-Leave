@@ -3,6 +3,7 @@ package com.dayoff.di
 import com.dayoff.core.db.di.dbModule
 import com.dayoff.core.network.di.networkModule
 import com.dayoff.data.di.dataModule
+import com.dayoff.feature.splash.di.splashFeatureModule
 import org.koin.core.module.Module
 
 /**
@@ -13,6 +14,7 @@ object AppModules {
     val all: List<Module> = listOf(
         dbModule,
         networkModule,
-        dataModule
+        dataModule,
+        splashFeatureModule,
     )
 }

@@ -12,11 +12,14 @@ android {
     compileSdk = 35
 
     defaultConfig {
+        val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
+
         applicationId = "com.dayoff.manager"
         minSdk = 28
         targetSdk = 35
-        versionCode = 1
-        versionName = "1.0"
+
+        versionCode = libs.findVersion("app-version-code").get().requiredVersion.toInt()
+        versionName = libs.findVersion("app-version-name").get().requiredVersion
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -67,7 +70,6 @@ dependencies {
     implementation(project(":data"))
     implementation(project(":di"))
 
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -79,6 +81,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.androidx.runtime.livedata)
+    implementation(libs.androidx.navigation.compose)
 
     // Firebase
     implementation(platform(libs.firebase.bom))
@@ -91,7 +94,7 @@ dependencies {
     // Util
     implementation(libs.timber)
     implementation(libs.startup)
-    implementation(libs.androidx.navigation.compose.jvmstubs)
+    implementation(libs.androidx.core.splashscreen)
 
     // Test
     testImplementation(libs.junit)
