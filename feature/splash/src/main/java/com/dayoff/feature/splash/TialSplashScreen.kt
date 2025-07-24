@@ -1,5 +1,6 @@
 package com.dayoff.feature.splash
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -14,6 +15,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -26,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.dayoff.designsystem.theme.LocalTialColors
+import com.dayoff.feature.splash.model.SplashNavigation
 import org.koin.androidx.compose.koinViewModel
 import timber.log.Timber
 
@@ -41,22 +44,26 @@ fun TialSplashScreen(
     viewModel: TialSplashViewModel = koinViewModel<TialSplashViewModel>(),
     onNavigateToHome: () -> Unit = { }
 ) {
+    val context = LocalContext.current
     val color = LocalTialColors.current
-    val appVersion by viewModel.appVersionState.collectAsStateWithLifecycle()
 
-    LaunchedEffect(appVersion) {
-        val versionCode = appVersion?.appVersionCode ?: run {
-            Timber.tag("Screen.Splash").d("Not Fetch Version. Wait")
-            return@LaunchedEffect
-        }
+    val navigationState by viewModel.navigationState.collectAsStateWithLifecycle()
 
-        Timber.tag("Screen.Splash").d("Fetch Version($appVersion)")
+    LaunchedEffect(navigationState) {
+        when(navigationState) {
+            SplashNavigation.Home -> {
+                onNavigateToHome()
+            }
 
-        if(BuildConfig.APP_VERSION_CODE < versionCode) {
-            Timber.tag("Screen.Splash").d("New Version. Go to Update")
-        } else {
-            Timber.tag("Screen.Splash").d("Current Version. Go to Home")
-            onNavigateToHome()
+            SplashNavigation.Update -> {
+                Toast.makeText(context, "업데이트가 필요합니다.", Toast.LENGTH_SHORT).show()
+            }
+
+            SplashNavigation.Error -> {
+                Toast.makeText(context, "오류가 발생했습니다.", Toast.LENGTH_SHORT).show()
+            }
+
+            null -> Unit
         }
     }
 
