@@ -62,9 +62,11 @@ configurations.all {
 
 dependencies {
     implementation(project(":core:model"))
+    implementation(project(":core:ui"))
+    implementation(project(":core:navigation"))
     implementation(project(":data"))
     implementation(project(":di"))
-    implementation(project(":core:ui"))
+
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -89,6 +91,7 @@ dependencies {
     // Util
     implementation(libs.timber)
     implementation(libs.startup)
+    implementation(libs.androidx.navigation.compose.jvmstubs)
 
     // Test
     testImplementation(libs.junit)
