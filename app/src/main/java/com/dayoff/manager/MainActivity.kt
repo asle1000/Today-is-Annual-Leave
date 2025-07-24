@@ -31,7 +31,7 @@ class MainActivity : ComponentActivity() {
                 navController = navController,
                 startDestination = Screen.Splash.route
             ) {
-                appNavGraph(navController)
+                appNavGraph(navController = navController)
             }
         }
 

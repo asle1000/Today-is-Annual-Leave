@@ -42,6 +42,8 @@ composeCompiler {
 }
 
 dependencies {
+    implementation(project(":feature:splash"))
+
     implementation(libs.androidx.core.ktx)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.ui)
@@ -49,5 +51,5 @@ dependencies {
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.navigation.compose)
-    implementation(libs.androidx.navigation.common.android)
+//    implementation(libs.androidx.navigation.common.android)
 }
