@@ -70,7 +70,6 @@ dependencies {
     implementation(project(":data"))
     implementation(project(":di"))
 
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -95,6 +94,7 @@ dependencies {
     // Util
     implementation(libs.timber)
     implementation(libs.startup)
+    implementation(libs.androidx.core.splashscreen)
 
     // Test
     testImplementation(libs.junit)
