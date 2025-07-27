@@ -3,6 +3,7 @@ package com.dayoff.manager
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -10,9 +11,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.unit.dp
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.dayoff.core.model.calendar.CalendarDay
@@ -28,7 +34,17 @@ class MainActivity : ComponentActivity() {
 
         super.onCreate(savedInstanceState)
 
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+
         setContent {
+
+            val isDark = isSystemInDarkTheme()
+
+            SideEffect {
+                window.statusBarColor = Color.Transparent.toArgb()
+                WindowInsetsControllerCompat(window, window.decorView).isAppearanceLightStatusBars = true
+            }
+
             val navController = rememberNavController()
             NavHost(
                 navController = navController,

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="UI_TITLE_APP_BAR">관리 연도 추가</string>
+
+    <string name="UI_TITLE_SELECT_YEAR">몇 연도 연차를 관리할까요?</string>
+    <string name="UI_TITLE_INPUT_ANNUAL_LEAVE_YEAR">연차 일수를 확인해 주세요</string>
+
+    <string name="UI_SUBTITLE_SELECT_YEAR">
+        관리하고 싶은 연도를 선택해 주세요.\n
+        선택한 연도를 기준으로 연차를 정리할 수 있어요.
+    </string>
+
+    <string name="UI_SUBTITLE_INPUT_ANNUAL_LEAVE_YEAR">
+        입력된 연차 일수가 2025년도의 기준과 일치하는지 확인해 주세요.\n
+        맞지 않을 경우 맞는 일수로 수정해 주세요.
+    </string>
+
+    <string name="UI_FORM_TITLE_SELECT_ANNUAL_LEAVE_YEAR">연도 선택</string>"
+    <string name="UI_FORM_HINT_SELECT_ANNUAL_LEAVE_YEAR">연도 선택</string>"
+
+    <string name="UI_FORM_TITLE_SELECT_HIRE_YEAR">입사 연도 선택</string>"
+    <string name="UI_FORM_HINT_SELECT_HIRE_YEAR">연도 선택</string>"
+    <string name="UI_FORM_INFO_MESSAGE_SELECT_HIRE_YEAR">
+        입사 연도 선택 시, 연차를 자동으로 계산해드려요! 직접 입력하고 싶다면 생략하셔도 괜찮아요
+    </string>"
+
+    <string name="UI_FORM_TITLE_INPUT_ANNUAL_LEAVE_YEAR">총 연차 수</string>"
+    <string name="UI_FORM_HINT_INPUT_ANNUAL_LEAVE_YEAR">연차 입력</string>"
+
+    <string name="SELECT_YEAR_PAGE_SUB_TITLE">관리하고 싶은 연도를 선택해 주세요.</string>>
+
+    <string name="BUTTON_PREVIOUS">이전</string>
+    <string name="BUTTON_NEXT">다음</string>
+    <string name="BUTTON_CONFIRM">확인</string>
+
+    <string name="DESCRIPTION_PAGER_ANIMATION_LABEL">label_horizontal_pager_indicator</string>
+    <string name="DESCRIPTION_ICON_STEP_ACTIVATE">설명::스텝 활성화</string>
+    <string name="DESCRIPTION_ICON_STEP_INACTIVATE">설명::스텝 비활성화</string>
+</resources>

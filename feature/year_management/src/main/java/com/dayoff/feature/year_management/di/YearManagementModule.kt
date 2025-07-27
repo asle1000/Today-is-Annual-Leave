@@ -1,16 +1,16 @@
-package com.dayoff.feature.splash.di
+package com.dayoff.feature.year_management.di
 
 import androidx.lifecycle.SavedStateHandle
+import com.dayoff.feature.year_management.YearManagementViewModel
 import org.koin.core.module.dsl.viewModel
-import com.dayoff.feature.splash.TialSplashViewModel
 import org.koin.dsl.module
 
 /**
  *  Created by KyunghyunPark at 2025. 7. 24.
 
  */
-val splashFeatureModule = module {
+val yearManagementFeatureModule = module {
     viewModel { (_: SavedStateHandle) ->
-        TialSplashViewModel()
+        YearManagementViewModel()
     }
 }

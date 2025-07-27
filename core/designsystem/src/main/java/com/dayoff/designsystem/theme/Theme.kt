@@ -76,10 +76,11 @@ fun TodayIsAnnualLeaveTheme(
     val typographyScheme = LocalTialTypes.current
 
     val view = LocalView.current
+
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
-//            window.statusBarColor = colorScheme.primary.toArgb()
+            window.statusBarColor = colorScheme.primary.toArgb()
             WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = !darkTheme
         }
     }

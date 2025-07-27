@@ -20,7 +20,7 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.dayoff.designsystem.R
+import com.dayoff.core.ui.R
 import com.dayoff.designsystem.theme.LocalTialColors
 import com.dayoff.designsystem.theme.LocalTialShapes
 import com.dayoff.designsystem.theme.LocalTialTypes

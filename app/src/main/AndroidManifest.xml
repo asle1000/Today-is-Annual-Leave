@@ -18,6 +18,7 @@
         <activity
             android:name="com.dayoff.manager.MainActivity"
             android:exported="true"
+            android:windowLayoutInDisplayCutoutMode="shortEdges"
             android:theme="@style/Theme.TodayIsAnnualLeave">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

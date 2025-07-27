@@ -43,6 +43,7 @@ composeCompiler {
 
 dependencies {
     implementation(project(":feature:splash"))
+    implementation(project(":feature:year_management"))
 
     implementation(libs.androidx.core.ktx)
     implementation(platform(libs.androidx.compose.bom))

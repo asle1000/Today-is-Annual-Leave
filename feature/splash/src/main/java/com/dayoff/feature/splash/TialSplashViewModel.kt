@@ -18,19 +18,21 @@ import timber.log.Timber
  *
  *  Splash ViewModel
  */
-class TialSplashViewModel(
-    private val handle: SavedStateHandle,
-) : ViewModel() {
+class TialSplashViewModel : ViewModel() {
 
     init {
         fetchAppVersionFromRemoteConfig()
     }
 
-    private val remoteConfig = Firebase.remoteConfig.apply {
-        setConfigSettingsAsync(
-            remoteConfigSettings {
-                minimumFetchIntervalInSeconds = 3600
-            })
+    companion object {
+        private val remoteConfig by lazy {
+            Firebase.remoteConfig.apply {
+                setConfigSettingsAsync(
+                    remoteConfigSettings {
+                        minimumFetchIntervalInSeconds = 3600
+                    })
+            }
+        }
     }
 
     private val _navigationState = MutableStateFlow<SplashNavigation?>(null)

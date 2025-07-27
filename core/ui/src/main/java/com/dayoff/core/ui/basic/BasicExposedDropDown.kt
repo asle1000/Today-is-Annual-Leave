@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -43,7 +44,7 @@ import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
-import com.dayoff.designsystem.R
+import com.dayoff.core.ui.R
 import com.dayoff.designsystem.theme.LocalTialColors
 import com.dayoff.designsystem.theme.LocalTialShapes
 import com.dayoff.designsystem.theme.LocalTialTypes
@@ -108,6 +109,7 @@ fun BasicExposedDropdown(
     }
 
     ExposedDropdownMenuBox(
+        modifier = Modifier,
         expanded = expanded,
         onExpandedChange = {
             if (isEnabled) expanded = !expanded
@@ -116,6 +118,7 @@ fun BasicExposedDropdown(
     ) {
         Box(
             modifier = Modifier
+                .defaultMinSize(minHeight = 52.dp)
                 .menuAnchor(MenuAnchorType.PrimaryNotEditable, true)
                 .clip(shape.Small)
                 .border(
@@ -128,7 +131,9 @@ fun BasicExposedDropdown(
                     },
                     shape = shape.Small
                 )
-                .padding(16.dp)
+                .padding(horizontal = 16.dp),
+            contentAlignment = Alignment.Center
+
         ) {
             Row(
                 modifier = modifier,
@@ -144,7 +149,7 @@ fun BasicExposedDropdown(
 
                 Text(
                     text = currentSelection,
-                    style = type.bodyLarge,
+                    style = type.labelLarge,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                     modifier = Modifier

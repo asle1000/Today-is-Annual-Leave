@@ -4,6 +4,7 @@ import com.dayoff.core.db.di.dbModule
 import com.dayoff.core.network.di.networkModule
 import com.dayoff.data.di.dataModule
 import com.dayoff.feature.splash.di.splashFeatureModule
+import com.dayoff.feature.year_management.di.yearManagementFeatureModule
 import org.koin.core.module.Module
 
 /**
@@ -16,5 +17,6 @@ object AppModules {
         networkModule,
         dataModule,
         splashFeatureModule,
+        yearManagementFeatureModule,
     )
 }
