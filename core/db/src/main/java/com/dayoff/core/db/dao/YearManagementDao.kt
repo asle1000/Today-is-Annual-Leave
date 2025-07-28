@@ -2,7 +2,6 @@ package com.dayoff.core.db.dao
 
 import androidx.room.*
 import com.dayoff.core.db.entity.YearManagementEntity
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface YearManagementDao {
@@ -15,9 +14,9 @@ interface YearManagementDao {
     @Delete
     suspend fun delete(entity: YearManagementEntity)
 
-    @Query("SELECT * FROM year_management ORDER BY created_date DESC")
-    fun getAll(): Flow<List<YearManagementEntity>>
+    @Query("SELECT * FROM year_management WHERE annual_leave_year = :year LIMIT 1")
+    suspend fun getByAnnualLeaveYear(year: Int): YearManagementEntity?
 
-    @Query("SELECT * FROM year_management WHERE id = :id")
-    suspend fun getById(id: Long): YearManagementEntity?
+    @Query("SELECT * FROM year_management ORDER BY annual_leave_year DESC")
+    suspend fun getAll(): List<YearManagementEntity>
 }

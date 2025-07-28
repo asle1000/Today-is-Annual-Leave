@@ -4,7 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dayoff.core.model.calendar.CalendarDay
-import com.dayoff.data.repository.CalendarRepository
+import com.dayoff.data.repository.CalendarEventRepositoryImpl
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -22,7 +22,7 @@ import java.time.YearMonth
 // TODO viewModelModule 임시
 class MainViewModel(
     val handle: SavedStateHandle,
-    val calendarRepo: CalendarRepository
+    val calendarRepo: CalendarEventRepositoryImpl
 ) : ViewModel() {
 
     private val _yearMonth = MutableStateFlow(YearMonth.now())
