@@ -1,6 +1,6 @@
 package com.dayoff.data.datasource
 
-import com.dayoff.core.db.CalendarEventDao
+import com.dayoff.core.db.dao.CalendarEventDao
 import com.dayoff.core.db.entity.CalendarEventEntity
 import com.dayoff.core.network.model.CalendarEventDto
 import com.dayoff.data.mapper.CalendarEventMapper
