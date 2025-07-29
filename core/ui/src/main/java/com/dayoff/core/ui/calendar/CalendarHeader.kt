@@ -12,7 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.dayoff.designsystem.R
+import com.dayoff.core.ui.R
 import com.dayoff.core.ui.utils.CircleRippleButton
 import com.dayoff.designsystem.theme.LocalTialColors
 import com.dayoff.designsystem.theme.LocalTialTypes

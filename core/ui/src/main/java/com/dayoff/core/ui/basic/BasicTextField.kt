@@ -5,6 +5,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
@@ -14,6 +15,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -72,6 +74,7 @@ fun BasicTextField(
 
     Surface(
         modifier = modifier
+            .defaultMinSize(minHeight = 52.dp)
             .clip(shape.Small)
             .border(1.dp, borderColor, shape.Small)
             .background(color.background.base.white)
@@ -91,11 +94,13 @@ fun BasicTextField(
                 color = if (enabled) color.text.surface.primary else color.text.disabled.primary
             ),
             decorationBox = @Composable { innerTextField ->
-                Box {
+                Box(
+                    contentAlignment = Alignment.CenterStart
+                ) {
                     if (value.isEmpty() && placeholder != null) {
                         Text(
                             text = placeholder,
-                            style = type.bodyMedium,
+                            style = type.labelLarge,
                             color = color.text.surface.tertiary
                         )
                     }

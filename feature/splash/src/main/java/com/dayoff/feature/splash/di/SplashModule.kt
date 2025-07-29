@@ -10,7 +10,7 @@ import org.koin.dsl.module
 
  */
 val splashFeatureModule = module {
-    viewModel { (handle: SavedStateHandle) ->
-        TialSplashViewModel(handle = handle)
+    viewModel { (_: SavedStateHandle) ->
+        TialSplashViewModel()
     }
 }

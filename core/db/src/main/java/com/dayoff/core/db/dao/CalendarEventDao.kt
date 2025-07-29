@@ -1,4 +1,4 @@
-package com.dayoff.core.db
+package com.dayoff.core.db.dao
 
 import androidx.room.*
 import com.dayoff.core.db.entity.CalendarEventEntity

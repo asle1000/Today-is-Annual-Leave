@@ -39,6 +39,7 @@ dependencies {
     implementation(project(":data"))
 
     implementation(project(":feature:splash"))
+    implementation(project(":feature:year_management"))
 
     implementation(platform(libs.koin.bom))
     implementation(libs.bundles.koin)
