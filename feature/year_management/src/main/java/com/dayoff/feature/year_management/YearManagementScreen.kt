@@ -45,6 +45,7 @@ import com.dayoff.feature.year_management.ModuleConst.PAGE_TOTAL_COUNT
 import com.dayoff.feature.year_management.ModuleConst.SELECT_YEAR_PAGE_INDEX
 import com.dayoff.feature.year_management.components.HorizontalPagerIndicator
 import kotlinx.coroutines.launch
+import org.koin.androidx.compose.koinViewModel
 import java.time.LocalDate
 
 /**
@@ -54,7 +55,7 @@ import java.time.LocalDate
 
 @Composable
 fun YearManagementScreen(
-    viewModel: YearManagementViewModel,
+    viewModel: YearManagementViewModel = koinViewModel(),
     onBack: () -> Unit = {},
     onDone: (Int) -> Unit = {},
 ) {
@@ -111,10 +112,12 @@ fun YearManagementScreen(
                         onAnnualLeaveYearSelected = viewModel::updateAnnualLeaveYear,
                         onHireYearSelected = viewModel::updateHireYear,
                     )
+
                     INPUT_ANNUAL_LEAVE_PAGE_INDEX -> InputAnnualLeavePage(
                         totalAnnualLeave = uiState.totalAnnualLeave.toString(),
                         onAnnualLeaveYearChanged = viewModel::updateTotalAnnualLeave,
                     )
+
                     else -> throw IllegalStateException("Unsupported page index: $page")
                 }
             }
@@ -126,6 +129,7 @@ fun YearManagementScreen(
                     if (pagerState.currentPage == SELECT_YEAR_PAGE_INDEX) {
                         viewModel.onNextStep()
                     } else {
+                        viewModel.onRegisterAnnualYear()
                         onDone(uiState.annualLeaveYear?.toInt() ?: LocalDate.now().year)
                     }
                 }

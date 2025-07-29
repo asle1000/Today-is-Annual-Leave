@@ -7,7 +7,7 @@ import com.dayoff.core.db.entity.YearManagementEntity
 
  */
 interface YearManagementRepository {
-    suspend fun registerYear(
+    suspend fun registerAnnualYear(
         annualLeaveYear: Int,
         hireYear: Int,
         totalAnnualLeave: Int

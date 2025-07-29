@@ -11,7 +11,7 @@ class YearManagementRepositoryImpl(
     private val yearManagementLocalDataSource: YearManagementLocalDataSource
 ) : YearManagementRepository {
 
-    override suspend fun registerYear(
+    override suspend fun registerAnnualYear(
         annualLeaveYear: Int,
         hireYear: Int,
         totalAnnualLeave: Int
@@ -24,6 +24,7 @@ class YearManagementRepositoryImpl(
             createdDate = System.currentTimeMillis(),
             modifiedDate = System.currentTimeMillis()
         )
+
         yearManagementLocalDataSource.insert(entity = entity)
     }
 

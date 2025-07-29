@@ -11,6 +11,6 @@ import org.koin.dsl.module
  */
 val yearManagementFeatureModule = module {
     viewModel { (_: SavedStateHandle) ->
-        YearManagementViewModel()
+        YearManagementViewModel(yearManagementRepository = get())
     }
 }

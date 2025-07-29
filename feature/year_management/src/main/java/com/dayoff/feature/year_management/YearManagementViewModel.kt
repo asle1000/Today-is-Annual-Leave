@@ -4,9 +4,10 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.dayoff.data.repository.YearManagementRepository
 import com.dayoff.feature.year_management.model.YearManagementUiState
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit
 import kotlin.math.min
@@ -15,15 +16,17 @@ import kotlin.math.min
  *  Created by KyunghyunPark at 2025. 7. 27.
 
  */
-class YearManagementViewModel : ViewModel() {
+class YearManagementViewModel(
+    private val yearManagementRepository: YearManagementRepository
+) : ViewModel() {
 
-    private val _uiState: MutableState<YearManagementUiState> = mutableStateOf(YearManagementUiState())
+    private val _uiState: MutableState<YearManagementUiState> =
+        mutableStateOf(YearManagementUiState())
     val uiState: State<YearManagementUiState> = _uiState
 
     fun updateAnnualLeaveYear(year: String?) {
         _uiState.value = _uiState.value.copy(
-            annualLeaveYear = year,
-            annualLeaveYearErrorMessage = null
+            annualLeaveYear = year, annualLeaveYearErrorMessage = null
         )
     }
 
@@ -79,9 +82,19 @@ class YearManagementViewModel : ViewModel() {
         updateCurrentPage(ModuleConst.INPUT_ANNUAL_LEAVE_PAGE_INDEX)
     }
 
+    fun onRegisterAnnualYear() {
+        viewModelScope.launch {
+            // TODO annualLeaveYear, hireYear가 null일 때 오류 체크 필요?
+            yearManagementRepository.registerAnnualYear(
+                annualLeaveYear = uiState.value.annualLeaveYear?.toInt() ?: LocalDate.now().year,
+                hireYear = uiState.value.hireYear?.toInt() ?: LocalDate.now().year,
+                totalAnnualLeave = uiState.value.totalAnnualLeave
+            )
+        }
+    }
+
     private fun calculateOfficialAnnualLeave(
-        hireDate: LocalDate,
-        annualLeaveDate: LocalDate = LocalDate.now()
+        hireDate: LocalDate, annualLeaveDate: LocalDate = LocalDate.now()
     ): Int {
         val monthsWorked = ChronoUnit.MONTHS.between(hireDate, annualLeaveDate).toInt()
         val yearsWorked = ChronoUnit.YEARS.between(hireDate, annualLeaveDate).toInt()
