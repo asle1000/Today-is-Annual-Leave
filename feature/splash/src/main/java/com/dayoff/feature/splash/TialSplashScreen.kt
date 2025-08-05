@@ -27,10 +27,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.dayoff.core.model.Screen
 import com.dayoff.designsystem.theme.LocalTialColors
 import com.dayoff.feature.splash.model.SplashNavigation
 import org.koin.androidx.compose.koinViewModel
-import timber.log.Timber
 
 /**
  *  Created by KyunghyunPark at 2025. 7. 24.
@@ -42,7 +42,7 @@ import timber.log.Timber
 @Composable
 fun TialSplashScreen(
     viewModel: TialSplashViewModel = koinViewModel<TialSplashViewModel>(),
-    onNavigateToHome: () -> Unit = { }
+    onNavigate: (Screen) -> Unit = { }
 ) {
     val context = LocalContext.current
     val color = LocalTialColors.current
@@ -52,7 +52,7 @@ fun TialSplashScreen(
     LaunchedEffect(navigationState) {
         when(navigationState) {
             SplashNavigation.Home -> {
-                onNavigateToHome()
+                onNavigate(Screen.Calendar)
             }
 
             SplashNavigation.Update -> {

@@ -1,7 +1,11 @@
 package com.dayoff.data.repository
 
 import com.dayoff.core.db.entity.YearManagementEntity
+import com.dayoff.core.model.year_management.YearManagementInfo
 import com.dayoff.data.datasource.YearManagementLocalDataSource
+import com.dayoff.data.mapper.YearManagementMapper.toInfo
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 /**
  *  Created by KyunghyunPark at 2025. 7. 29.
@@ -28,11 +32,21 @@ class YearManagementRepositoryImpl(
         yearManagementLocalDataSource.insert(entity = entity)
     }
 
-    override suspend fun getYear(year: Int): YearManagementEntity? {
-        return yearManagementLocalDataSource.getByAnnualLeaveYear(year = year)
+    override suspend fun getYear(year: Int): YearManagementInfo? {
+        return yearManagementLocalDataSource.getByAnnualLeaveYear(year = year)?.toInfo()
     }
 
-    override suspend fun getAllYears(): List<YearManagementEntity> {
-        return yearManagementLocalDataSource.getAll()
+    override suspend fun getAllYears(): List<YearManagementInfo> {
+        return yearManagementLocalDataSource.getAll().map {
+            it.toInfo()
+        }
+    }
+
+    override fun observeYearManagementInfo(): Flow<List<YearManagementInfo>> {
+        return yearManagementLocalDataSource.observeAll().map { list ->
+            list.map {
+                it.toInfo()
+            }
+        }
     }
 }

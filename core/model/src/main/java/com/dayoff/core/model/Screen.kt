@@ -1,4 +1,4 @@
-package com.dayoff.core.navigation
+package com.dayoff.core.model
 
 /**
  *  Created by KyunghyunPark at 2025. 7. 23.

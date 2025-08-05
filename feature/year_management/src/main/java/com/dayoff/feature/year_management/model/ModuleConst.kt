@@ -1,4 +1,4 @@
-package com.dayoff.feature.year_management
+package com.dayoff.feature.year_management.model
 
 /**
  *  Created by KyunghyunPark at 2025. 7. 27.

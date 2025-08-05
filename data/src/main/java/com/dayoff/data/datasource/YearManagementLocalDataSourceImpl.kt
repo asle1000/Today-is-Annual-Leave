@@ -2,8 +2,7 @@ package com.dayoff.data.datasource
 
 import com.dayoff.core.db.dao.YearManagementDao
 import com.dayoff.core.db.entity.YearManagementEntity
-import com.dayoff.core.network.api.CalendarApi
-import com.dayoff.core.network.model.CalendarEventDto
+import kotlinx.coroutines.flow.Flow
 
 class YearManagementLocalDataSourceImpl(
     private val yearManagementDao: YearManagementDao
@@ -19,4 +18,6 @@ class YearManagementLocalDataSourceImpl(
         yearManagementDao.getByAnnualLeaveYear(year)
 
     override suspend fun getAll(): List<YearManagementEntity> = yearManagementDao.getAll()
+
+    override fun observeAll(): Flow<List<YearManagementEntity>> = yearManagementDao.observeAll()
 }

@@ -3,6 +3,8 @@ package com.dayoff.core.navigation
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
+import com.dayoff.core.model.Screen.*
+import com.dayoff.feature.calendar.CalendarScreen
 import com.dayoff.feature.splash.TialSplashScreen
 import com.dayoff.feature.year_management.YearManagementScreen
 
@@ -12,33 +14,40 @@ import com.dayoff.feature.year_management.YearManagementScreen
  */
 
 fun NavGraphBuilder.appNavGraph(navController: NavHostController) {
-    composable(route = Screen.Splash.route) {
+    composable(route = Splash.route) {
         TialSplashScreen {
-            navController.navigate(route = Screen.YearManager.route) {
-                popUpTo(Screen.Splash.route) {
+            navController.navigate(route = Calendar.route) {
+                popUpTo(Splash.route) {
                     inclusive = true
                 }
             }
         }
     }
 
-    composable(Screen.Calendar.route) {
+    composable(Calendar.route) {
+        CalendarScreen(onNavigate = { screen ->
+            navController.navigate(route = screen.route)
+        })
 
     }
 
-    composable(route = Screen.YearManager.route) {
-        YearManagementScreen(onBack = {}, onDone = {})
+    composable(route = YearManager.route) {
+        YearManagementScreen(onBack = {
+            navController.popBackStack()
+        }, onDone = {
+            navController.popBackStack()
+        })
     }
 
-    composable(Screen.AnnualUse.route) {
+    composable(AnnualUse.route) {
 
     }
 
-    composable(Screen.AnnualUseDetail("{id}").route) {
+    composable(AnnualUseDetail("{id}").route) {
 
     }
 
-    composable(Screen.AnnualMemo.route) {
+    composable(AnnualMemo.route) {
 
     }
 }

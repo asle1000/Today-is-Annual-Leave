@@ -2,6 +2,7 @@ package com.dayoff.core.db.dao
 
 import androidx.room.*
 import com.dayoff.core.db.entity.YearManagementEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface YearManagementDao {
@@ -19,4 +20,7 @@ interface YearManagementDao {
 
     @Query("SELECT * FROM year_management ORDER BY annual_leave_year DESC")
     suspend fun getAll(): List<YearManagementEntity>
+
+    @Query("SELECT * FROM year_management ORDER BY annual_leave_year DESC")
+    fun observeAll(): Flow<List<YearManagementEntity>>
 }

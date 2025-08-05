@@ -13,4 +13,5 @@ interface YearManagementLocalDataSource {
     suspend fun delete(entity: YearManagementEntity)
     suspend fun getByAnnualLeaveYear(year: Int): YearManagementEntity?
     suspend fun getAll(): List<YearManagementEntity>
+    fun observeAll(): Flow<List<YearManagementEntity>>
 }

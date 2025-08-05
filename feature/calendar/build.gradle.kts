@@ -6,24 +6,11 @@ plugins {
 }
 
 android {
-    namespace = "com.dayoff.feature.splash"
+    namespace = "com.dayoff.feature.calendar"
     compileSdk = 35
 
     defaultConfig {
         minSdk = 28
-
-        val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
-
-        buildConfigField(
-            "int",
-            "APP_VERSION_CODE",
-            libs.findVersion("app-version-code").get().requiredVersion.toInt().toString()
-        )
-        buildConfigField(
-            "String",
-            "APP_VERSION_NAME",
-            "\"${libs.findVersion("app-version-name").get().requiredVersion}\""
-        )
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -63,10 +50,9 @@ composeCompiler {
 
 dependencies {
     implementation(project(":core:designsystem"))
-    implementation(project(":core:model"))
     implementation(project(":core:ui"))
     implementation(project(":data"))
-
+    implementation(project(":core:model"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -84,11 +70,6 @@ dependencies {
     // DI - koin
     implementation(project.dependencies.platform(libs.koin.bom))
     implementation(libs.bundles.koin)
-
-    // Firebase
-    implementation(platform(libs.firebase.bom))
-    implementation(libs.firebase.remote.config.ktx)
-    implementation(libs.firebase.analytics.ktx)
 
     // Util
     implementation(libs.timber)

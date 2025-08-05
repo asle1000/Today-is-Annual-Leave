@@ -42,7 +42,9 @@ composeCompiler {
 }
 
 dependencies {
+    implementation(project(":core:model"))
     implementation(project(":feature:splash"))
+    implementation(project(":feature:calendar"))
     implementation(project(":feature:year_management"))
 
     implementation(libs.androidx.core.ktx)
