@@ -1,7 +1,7 @@
-package com.dayoff.feature.home.di
+package com.dayoff.feature.leave_usage.di
 
 import androidx.lifecycle.SavedStateHandle
-import com.dayoff.feature.home.HomeViewModel
+import com.dayoff.feature.leave_usage.LeaveRegistrationViewModel
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 
@@ -9,9 +9,9 @@ import org.koin.dsl.module
  *  Created by KyunghyunPark at 2025. 8. 2.
 
  */
-val calendarFeatureModule = module {
+val leaveUsageFeatureModule = module {
     viewModel { (handle: SavedStateHandle) ->
-        HomeViewModel(
+        LeaveRegistrationViewModel(
             handle = handle,
             calendarRepository = get(),
             yearManagementRepository = get(),

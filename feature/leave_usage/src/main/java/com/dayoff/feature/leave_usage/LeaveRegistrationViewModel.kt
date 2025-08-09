@@ -1,4 +1,4 @@
-package com.dayoff.feature.home
+package com.dayoff.feature.leave_usage
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -18,7 +18,11 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import java.time.YearMonth
 
-class CalendarViewModel(
+/**
+ *  Created by KyunghyunPark at 2025. 8. 9.
+
+ */
+class LeaveRegistrationViewModel(
     val handle: SavedStateHandle,
     val calendarRepository: CalendarEventRepository,
     val yearManagementRepository: YearManagementRepository,
@@ -28,22 +32,19 @@ class CalendarViewModel(
     val yearMonth: StateFlow<YearMonth> = _yearMonth.asStateFlow()
 
     @OptIn(ExperimentalCoroutinesApi::class)
-    val calendarEvents: StateFlow<List<CalendarDay>> = _yearMonth
-        .flatMapLatest { ym ->
+    val calendarEvents: StateFlow<List<CalendarDay>> = _yearMonth.flatMapLatest { ym ->
             calendarRepository.getCalendarEventsByYear(ym.year, ym.monthValue)
-        }
-        .stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
+        }.stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
 
     fun onYearMonthChanged(year: Int, month: Int) {
         _yearMonth.value = YearMonth.of(year, month)
     }
 
-    fun fetchCalendarEvents(year: Int) = viewModelScope.launch{
+    fun fetchCalendarEvents(year: Int) = viewModelScope.launch {
         calendarRepository.fetchCalendarEvents(year = year)
     }
 
     fun observeYearManagementInfo(): Flow<List<YearManagementInfo>> {
-       return yearManagementRepository.observeYearManagementInfo()
-//           .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), null)
+        return yearManagementRepository.observeYearManagementInfo()
     }
 }

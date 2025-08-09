@@ -57,7 +57,8 @@ fun TialTextRadioButton(
             .fillMaxWidth()
             .clip(shape = shape)
             .border(width = 1.dp, color = borderColor, shape = shape)
-            .clickable(onClick = onClick, role = Role.RadioButton), color = backgroundColor
+            .clickable(onClick = onClick, role = Role.RadioButton),
+        color = backgroundColor,
     ) {
         Row(
             modifier = Modifier
@@ -106,10 +107,12 @@ fun TialIconRadioButton(
         modifier = modifier
             .clip(shape = shape)
             .border(width = 1.dp, color = borderColor, shape = shape)
-            .clickable(onClick = onClick, role = Role.RadioButton), color = backgroundColor
+            .clickable(onClick = onClick, role = Role.RadioButton),
+        color = backgroundColor,
     ) {
         Column(
-            modifier = Modifier.padding(vertical = 20.dp, horizontal = 34.dp),
+//            modifier = Modifier.padding(vertical = 20.dp, horizontal = 34.dp),
+            modifier = Modifier.padding(vertical = 20.dp, horizontal = 16.dp),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
@@ -167,6 +170,7 @@ fun TialIconRadioButtonHorizontalGroup(
     ) {
         options.forEachIndexed { index, (img, label) ->
             TialIconRadioButton(
+                modifier = Modifier.weight(1f),
                 iconRes = img,
                 label = label,
                 checked = selectedIndex == index,
@@ -175,6 +179,10 @@ fun TialIconRadioButtonHorizontalGroup(
                     onSelectionChanged(index)
                 },
             )
+
+            if (index != options.lastIndex) {
+                Spacer(modifier = Modifier.width(width = 8.dp))
+            }
         }
     }
 }

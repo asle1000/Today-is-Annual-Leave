@@ -8,7 +8,7 @@ sealed class Screen(val route: String) {
     data object Splash : Screen("splash")
     data object Calendar : Screen("calendar")
     data object YearManager : Screen("year_manager")
-    data object AnnualUse : Screen("annual_use")
+    data object LeaveUsage : Screen("leave_usage")
     data object AnnualMemo : Screen("annual_memo")
     data class AnnualUseDetail(val id: String) : Screen("annual_use_detail/{id}") {
         companion object {

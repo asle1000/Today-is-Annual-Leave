@@ -5,6 +5,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import com.dayoff.core.model.Screen.*
 import com.dayoff.feature.home.HomeScreen
+import com.dayoff.feature.leave_usage.LeaveRegistrationScreen
 import com.dayoff.feature.splash.TialSplashScreen
 import com.dayoff.feature.year_management.YearManagementScreen
 
@@ -28,7 +29,6 @@ fun NavGraphBuilder.appNavGraph(navController: NavHostController) {
         HomeScreen(onNavigate = { screen ->
             navController.navigate(route = screen.route)
         })
-
     }
 
     composable(route = YearManager.route) {
@@ -39,8 +39,10 @@ fun NavGraphBuilder.appNavGraph(navController: NavHostController) {
         })
     }
 
-    composable(AnnualUse.route) {
-
+    composable(LeaveUsage.route) {
+        LeaveRegistrationScreen(onBack = {
+            navController.popBackStack()
+        })
     }
 
     composable(AnnualUseDetail("{id}").route) {

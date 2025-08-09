@@ -27,15 +27,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dayoff.core.model.Screen
-import com.dayoff.core.model.calendar.CalendarDay
-import com.dayoff.core.ui.calendar.MonthCalendar
+import com.dayoff.core.ui.calendar.CalendarView
 import com.dayoff.designsystem.theme.LocalTialColors
 import com.dayoff.designsystem.theme.LocalTialTypes
 import com.dayoff.feature.home.components.AddAnnualEventFab
 import com.dayoff.feature.home.components.AnnualYearButtonGroup
 import org.koin.androidx.compose.koinViewModel
-import timber.log.Timber
-import java.time.YearMonth
 
 /**
  *  Created by KyunghyunPark at 2025. 7. 29.
@@ -44,7 +41,7 @@ import java.time.YearMonth
 @Preview
 @Composable
 fun HomeScreen(
-    viewModel: CalendarViewModel = koinViewModel(), onNavigate: (Screen) -> Unit = {}
+    viewModel: HomeViewModel = koinViewModel(), onNavigate: (Screen) -> Unit = {}
 ) {
     val color = LocalTialColors.current
 
@@ -76,7 +73,7 @@ fun HomeScreen(
         modifier = Modifier.background(color.background.base.primary),
         floatingActionButton = {
             AddAnnualEventFab {
-
+                onNavigate(Screen.LeaveUsage)
             }
         },
         floatingActionButtonPosition = FabPosition.End
@@ -122,7 +119,7 @@ fun HomeScreen(
                     }
 
                     else -> {
-                        Calendar(
+                        CalendarView(
                             yearMonth = yearMonth,
                             list = list,
                             onChanged = viewModel::onYearMonthChanged
@@ -169,30 +166,5 @@ private fun Empty() {
         )
 
         Spacer(Modifier.weight(3f))
-    }
-}
-
-@Composable
-fun Calendar(
-    yearMonth: YearMonth,
-    list: List<CalendarDay>,
-    onChanged: (Int, Int) -> Unit,
-) {
-    Timber.d("CalendarScreen: \n${list.joinToString("\n")}")
-
-    Column {
-        MonthCalendar(days = list, yearMonth = yearMonth, onPrevMonth = {
-            if (yearMonth.monthValue > 1) {
-                val changedYearMonth = yearMonth.minusMonths(1)
-                onChanged(changedYearMonth.year, changedYearMonth.monthValue)
-            }
-        }, onNextMonth = {
-            if (yearMonth.monthValue < 12) {
-                val nextYearMonth = yearMonth.plusMonths(1)
-                onChanged(nextYearMonth.year, nextYearMonth.monthValue)
-            }
-        }, onRefresh = {
-
-        })
     }
 }
