@@ -1,4 +1,4 @@
-package com.dayoff.feature.calendar
+package com.dayoff.feature.home
 
 import org.junit.Test
 

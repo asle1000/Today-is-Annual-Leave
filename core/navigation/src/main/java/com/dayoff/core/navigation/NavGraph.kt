@@ -4,7 +4,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import com.dayoff.core.model.Screen.*
-import com.dayoff.feature.calendar.CalendarScreen
+import com.dayoff.feature.home.HomeScreen
 import com.dayoff.feature.splash.TialSplashScreen
 import com.dayoff.feature.year_management.YearManagementScreen
 
@@ -25,7 +25,7 @@ fun NavGraphBuilder.appNavGraph(navController: NavHostController) {
     }
 
     composable(Calendar.route) {
-        CalendarScreen(onNavigate = { screen ->
+        HomeScreen(onNavigate = { screen ->
             navController.navigate(route = screen.route)
         })
 

@@ -1,4 +1,4 @@
-package com.dayoff.feature.calendar
+package com.dayoff.feature.home
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel

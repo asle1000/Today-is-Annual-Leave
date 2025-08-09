@@ -40,7 +40,7 @@ dependencies {
 
     implementation(project(":feature:splash"))
     implementation(project(":feature:year_management"))
-    implementation(project(":feature:calendar"))
+    implementation(project(":feature:home"))
 
     implementation(platform(libs.koin.bom))
     implementation(libs.bundles.koin)

@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.dayoff.feature.calendar"
+    namespace = "com.dayoff.feature.home"
     compileSdk = 35
 
     defaultConfig {

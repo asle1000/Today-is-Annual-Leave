@@ -1,4 +1,4 @@
-package com.dayoff.feature.calendar.components
+package com.dayoff.feature.home.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.dp
 import com.dayoff.core.ui.button.CircleButton
 import com.dayoff.designsystem.theme.LocalTialColors
 import com.dayoff.designsystem.theme.LocalTialTypes
-import com.dayoff.feature.calendar.R
+import com.dayoff.feature.home.R
 
 /**
  *  Created by KyunghyunPark at 2025. 8. 2.

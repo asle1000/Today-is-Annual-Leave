@@ -1,4 +1,4 @@
-package com.dayoff.feature.calendar
+package com.dayoff.feature.home
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -10,11 +10,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FabPosition
-import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -34,8 +31,8 @@ import com.dayoff.core.model.calendar.CalendarDay
 import com.dayoff.core.ui.calendar.MonthCalendar
 import com.dayoff.designsystem.theme.LocalTialColors
 import com.dayoff.designsystem.theme.LocalTialTypes
-import com.dayoff.feature.calendar.components.AddAnnualEventFab
-import com.dayoff.feature.calendar.components.AnnualYearButtonGroup
+import com.dayoff.feature.home.components.AddAnnualEventFab
+import com.dayoff.feature.home.components.AnnualYearButtonGroup
 import org.koin.androidx.compose.koinViewModel
 import timber.log.Timber
 import java.time.YearMonth
@@ -46,7 +43,7 @@ import java.time.YearMonth
  */
 @Preview
 @Composable
-fun CalendarScreen(
+fun HomeScreen(
     viewModel: CalendarViewModel = koinViewModel(), onNavigate: (Screen) -> Unit = {}
 ) {
     val color = LocalTialColors.current

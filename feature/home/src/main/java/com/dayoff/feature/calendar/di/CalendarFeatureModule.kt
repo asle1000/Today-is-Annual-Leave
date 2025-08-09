@@ -1,7 +1,7 @@
-package com.dayoff.feature.calendar.di
+package com.dayoff.feature.home.di
 
 import androidx.lifecycle.SavedStateHandle
-import com.dayoff.feature.calendar.CalendarViewModel
+import com.dayoff.feature.home.CalendarViewModel
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 

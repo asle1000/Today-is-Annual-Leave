@@ -1,4 +1,4 @@
-package com.dayoff.feature.calendar.components
+package com.dayoff.feature.home.components
 
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.FloatingActionButton
@@ -6,7 +6,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.painterResource
 import com.dayoff.designsystem.theme.LocalTialColors
-import com.dayoff.feature.calendar.R
+import com.dayoff.feature.home.R
 
 @Composable
 fun AddAnnualEventFab(onClick: () -> Unit) {
