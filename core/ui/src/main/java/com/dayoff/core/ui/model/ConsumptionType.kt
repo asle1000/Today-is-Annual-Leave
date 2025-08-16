@@ -1,4 +1,4 @@
-package com.dayoff.feature.leave_usage.model
+package com.dayoff.core.ui.model
 
 /**
  *  Created by KyunghyunPark at 2025. 8. 9.

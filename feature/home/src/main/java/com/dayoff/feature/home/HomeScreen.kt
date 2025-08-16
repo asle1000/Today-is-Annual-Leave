@@ -1,5 +1,6 @@
 package com.dayoff.feature.home
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -19,15 +20,19 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dayoff.core.model.Screen
 import com.dayoff.core.ui.calendar.CalendarView
+import com.dayoff.core.ui.model.ClickMode
+import com.dayoff.core.ui.model.Selection
 import com.dayoff.designsystem.theme.LocalTialColors
 import com.dayoff.designsystem.theme.LocalTialTypes
 import com.dayoff.feature.home.components.AddAnnualEventFab
@@ -43,14 +48,17 @@ import org.koin.androidx.compose.koinViewModel
 fun HomeScreen(
     viewModel: HomeViewModel = koinViewModel(), onNavigate: (Screen) -> Unit = {}
 ) {
+    val context = LocalContext.current
     val color = LocalTialColors.current
 
     var selectedAnnualIdx by remember { mutableIntStateOf(0) }
 
     val yearMonth by viewModel.yearMonth.collectAsState()
-    val list by viewModel.calendarEvents.collectAsState()
+    val days by viewModel.calendarEvents.collectAsState()
 
     val yearRange by viewModel.observeYearManagementInfo().collectAsState(initial = null)
+
+    val selection by remember { mutableStateOf(Selection()) }
 
     LaunchedEffect(selectedAnnualIdx) {
 
@@ -68,6 +76,7 @@ fun HomeScreen(
     LaunchedEffect(key1 = yearMonth.year) {
         viewModel.fetchCalendarEvents(year = yearMonth.year)
     }
+
 
     Scaffold(
         modifier = Modifier.background(color.background.base.primary),
@@ -120,9 +129,20 @@ fun HomeScreen(
 
                     else -> {
                         CalendarView(
+                            days = days,
                             yearMonth = yearMonth,
-                            list = list,
-                            onChanged = viewModel::onYearMonthChanged
+                            mode = ClickMode.Inspect, // or Inspect
+                            selection = selection,
+                            onYearMonthChanged = viewModel::onYearMonthChanged,
+                            onInspect = { date ->
+
+                                days.find {
+                                    it.day == date.dayOfMonth && yearMonth.monthValue == date.monthValue && yearMonth.year == date.year
+                                }?.let {
+                                    Toast.makeText(context, it.name, Toast.LENGTH_SHORT).show()
+                                }
+
+                            },
                         )
                     }
                 }

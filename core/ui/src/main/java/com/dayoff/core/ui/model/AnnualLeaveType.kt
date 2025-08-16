@@ -1,4 +1,4 @@
-package com.dayoff.feature.leave_usage.model
+package com.dayoff.core.ui.model
 
 import androidx.annotation.DrawableRes
 import com.dayoff.core.ui.R

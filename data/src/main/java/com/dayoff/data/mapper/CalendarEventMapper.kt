@@ -69,6 +69,12 @@ object CalendarEventMapper {
     ): List<CalendarDay> {
         val yearMonth = YearMonth.of(year, month)
 
+        fun resolveDayName(date: LocalDate): String {
+            return eventEntities
+                .firstOrNull { it.year == date.year && it.month == date.monthValue && it.day == date.dayOfMonth }
+                ?.name ?: ""
+        }
+
         fun resolveIndicator(date: LocalDate): DayCellIndicatorType {
             return eventEntities
                 .firstOrNull { it.year == date.year && it.month == date.monthValue && it.day == date.dayOfMonth }
@@ -79,7 +85,8 @@ object CalendarEventMapper {
             yearMonth = yearMonth,
             today = today,
             startDayOfWeek = startDayOfWeek,
-            indicatorResolver = ::resolveIndicator
+            dayNameResolver = ::resolveDayName,
+            indicatorResolver = ::resolveIndicator,
         )
     }
 
@@ -87,6 +94,7 @@ object CalendarEventMapper {
         yearMonth: YearMonth,
         today: LocalDate,
         startDayOfWeek: DayOfWeek,
+        dayNameResolver:  (LocalDate) -> String,
         indicatorResolver: (LocalDate) -> DayCellIndicatorType
     ): List<CalendarDay> {
         val firstDayOfMonth = yearMonth.atDay(1)
@@ -101,7 +109,8 @@ object CalendarEventMapper {
             days.add(
                 CalendarDay(
                     day = prevMonthLastDay - offset + 1 + i,
-                    monthType = MonthType.PREV,
+                    name = dayNameResolver(prevMonth.atDay(prevMonthLastDay - offset + 1 + i)),
+                    monthType = MonthType.PREVIOUS,
                     cellType = DayCellType.DISABLED,
                     indicatorType = DayCellIndicatorType.NONE
                 )
@@ -113,6 +122,7 @@ object CalendarEventMapper {
             days.add(
                 CalendarDay(
                     day = day,
+                    name = dayNameResolver(date),
                     monthType = MonthType.CURRENT,
                     cellType = if (date == today) DayCellType.TODAY else DayCellType.ENABLED,
                     indicatorType = indicatorResolver(date)
@@ -125,6 +135,7 @@ object CalendarEventMapper {
             days.add(
                 CalendarDay(
                     day = day,
+                    name = dayNameResolver(lastDayOfMonth.plusDays(day.toLong())),
                     monthType = MonthType.NEXT,
                     cellType = DayCellType.DISABLED,
                     indicatorType = DayCellIndicatorType.NONE
