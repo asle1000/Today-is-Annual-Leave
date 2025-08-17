@@ -1,4 +1,4 @@
-package com.dayoff.feature.leave_usage.component
+package com.dayoff.core.ui.model
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -17,10 +17,10 @@ import com.dayoff.core.ui.TialIconRadioButtonHorizontalGroup
 import com.dayoff.core.ui.TialTextRadioButtonVerticalGroup
 import com.dayoff.core.ui.basic.BasicExposedDropdown
 import com.dayoff.core.ui.calendar.CalendarView
+import com.dayoff.core.ui.calendar.SubTitle
 import com.dayoff.designsystem.theme.LocalTialColors
 import com.dayoff.designsystem.theme.LocalTialTypes
-import com.dayoff.feature.leave_usage.model.AnnualLeaveType
-import com.dayoff.feature.leave_usage.model.ConsumptionType
+import java.time.LocalDate
 import java.time.YearMonth
 
 /**
@@ -34,9 +34,9 @@ fun AnnualLeaveConsumptionSelector(
 ) {
     val options = ConsumptionType.toList()
 
-    SubTitle("연차 소진 여부를 선택해 주세요")
+    SubTitle(text = "연차 소진 여부를 선택해 주세요")
 
-    Spacer(modifier = Modifier.height(12.dp))
+    Spacer(modifier = Modifier.height(height = 12.dp))
 
     TialTextRadioButtonVerticalGroup(
         modifier = modifier,
@@ -54,9 +54,9 @@ fun AnnualLeaveTypeSelector(
 ) {
     val options = AnnualLeaveType.toList()
 
-    SubTitle("사용할 연차 종류를 선택해 주세요")
+    SubTitle(text = "사용할 연차 종류를 선택해 주세요")
 
-    Spacer(modifier = Modifier.height(12.dp))
+    Spacer(modifier = Modifier.height(height = 12.dp))
 
     TialIconRadioButtonHorizontalGroup(
         modifier = modifier,
@@ -70,17 +70,24 @@ fun AnnualLeaveTypeSelector(
 @Composable
 fun LeaveSelector(
     yearMonth: YearMonth,
-    list: List<CalendarDay>,
-    onChanged: (Int, Int) -> Unit,
+    calendarDays: List<CalendarDay>,
+    selection: Selection,
+    onYearMonthChanged: (Int, Int) -> Unit,
+    onSelectionChanged: (Set<LocalDate>) -> Unit
 ) {
     SubTitle("사용할 날짜가 언제인가요?")
 
     Spacer(Modifier.height(8.dp))
 
     CalendarView(
+        days = calendarDays,
         yearMonth = yearMonth,
-        list = list,
-        onChanged = onChanged
+        mode = ClickMode.Select,
+        selection = selection,
+        onYearMonthChanged = onYearMonthChanged,
+        onSelectionChanged = { _, _, all ->
+            onSelectionChanged(all)
+        },
     )
 }
 
@@ -92,13 +99,15 @@ fun TimePickerSelector(
     onHourSelected: (String) -> Unit,
     onMinuteSelected: (String) -> Unit,
 ) {
-    val style = LocalTialTypes.current
     val color = LocalTialColors.current
+    val style = LocalTialTypes.current
 
-    val hourItems = (1..23).map { it.toString().padStart(2, '0') }
-    val minuteItems = (0..59).map { it.toString().padStart(2, '0') }
+    val hourItems = (1..7).map { it.toString().padStart(2, '0') }
+    val minuteItems = listOf(0, 30).map { it.toString().padStart(2, '0') }
 
     SubTitle("사용할 시간을 선택해 주세요")
+
+    Spacer(modifier = Modifier.height(height = 12.dp))
 
     Row(
         modifier = modifier.fillMaxWidth(),

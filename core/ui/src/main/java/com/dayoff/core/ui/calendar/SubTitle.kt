@@ -1,4 +1,4 @@
-package com.dayoff.feature.leave_usage.component
+package com.dayoff.core.ui.calendar
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
