@@ -78,18 +78,24 @@ class YearManagementViewModel(
             LocalDate.of(annualLeaveYear, 12, 31)
         }
 
-        val calculated = calculateOfficialAnnualLeave(hireDate, annualLeaveDate)
-        updateTotalAnnualLeave(calculated)
-        updateCurrentPage(ModuleConst.INPUT_ANNUAL_LEAVE_PAGE_INDEX)
+        val calculated = calculateOfficialAnnualLeave(
+            hireDate = hireDate,
+            annualLeaveDate = annualLeaveDate
+        )
+        updateTotalAnnualLeave(count = calculated)
+        updateCurrentPage(page = ModuleConst.INPUT_ANNUAL_LEAVE_PAGE_INDEX)
     }
 
     fun onRegisterAnnualYear() {
         viewModelScope.launch {
             // TODO annualLeaveYear, hireYear가 null일 때 오류 체크 필요?
+
+            val totalAnnualLeaveHours = uiState.value.totalAnnualLeave * 24
+
             yearManagementRepository.registerAnnualYear(
                 annualLeaveYear = uiState.value.annualLeaveYear?.toInt() ?: LocalDate.now().year,
                 hireYear = uiState.value.hireYear?.toInt() ?: LocalDate.now().year,
-                totalAnnualLeave = uiState.value.totalAnnualLeave
+                totalAnnualLeave = totalAnnualLeaveHours
             )
         }
     }
