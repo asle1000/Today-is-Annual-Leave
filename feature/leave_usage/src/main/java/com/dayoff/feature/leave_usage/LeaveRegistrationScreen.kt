@@ -33,7 +33,7 @@ import com.dayoff.core.ui.basic.TopAppBar
 import com.dayoff.core.ui.button.TialButton
 import com.dayoff.designsystem.theme.LocalTialColors
 import com.dayoff.core.ui.model.AnnualLeaveConsumptionSelector
-import com.dayoff.core.ui.model.AnnualLeaveType
+import com.dayoff.core.model.calendar.AnnualLeaveType
 import com.dayoff.core.ui.model.AnnualLeaveTypeSelector
 import com.dayoff.core.ui.model.ConsumptionType
 import com.dayoff.core.ui.model.LeaveSelector
