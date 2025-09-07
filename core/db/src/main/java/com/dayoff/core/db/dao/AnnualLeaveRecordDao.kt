@@ -6,6 +6,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import com.dayoff.core.db.entity.AnnualLeaveRecordEntity
+import kotlinx.coroutines.flow.Flow
 
 /**
  *  Created by KyunghyunPark at 2025. 8. 30.
@@ -13,6 +14,27 @@ import com.dayoff.core.db.entity.AnnualLeaveRecordEntity
  */
 @Dao
 interface AnnualLeaveRecordDao {
+
+    @Query(
+        """
+        SELECT *
+        FROM $TABLE_NAME
+        WHERE NOT (endDate < :startYmd OR startDate > :endYmd)
+        ORDER BY startDate ASC, endDate ASC, id ASC
+    """
+    )
+    suspend fun getByRangeOverlap(startYmd: Int, endYmd: Int): List<AnnualLeaveRecordEntity>
+
+    @Query(
+        """
+        SELECT *
+        FROM $TABLE_NAME
+        WHERE NOT (endDate < :startYmd OR startDate > :endYmd)
+        ORDER BY startDate ASC, endDate ASC, id ASC
+    """
+    )
+    fun observeByRangeOverlap(startYmd: Int, endYmd: Int): Flow<List<AnnualLeaveRecordEntity>>
+
     @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun insert(entity: AnnualLeaveRecordEntity): Long
 
@@ -21,7 +43,7 @@ interface AnnualLeaveRecordDao {
 
     @Query(
         value = """
-                UPDATE annual_leave_record
+                UPDATE $TABLE_NAME
                 SET 
                     startDate = COALESCE(:startDate, startDate),
                     endDate   = COALESCE(:endDate, endDate),
@@ -33,10 +55,14 @@ interface AnnualLeaveRecordDao {
     )
     suspend fun updateById(
         id: Long,
-        startDate: Int?,
-        endDate: Int?,
-        minutes: Int?,
-        memo: String?,
+        startDate: Int? = null,
+        endDate: Int? = null,
+        minutes: Int? = null,
+        memo: String? = null,
         modifiedAt: Long = System.currentTimeMillis()
     ): Int
+
+    companion object {
+        private const val TABLE_NAME = "annual_leave_record"
+    }
 }

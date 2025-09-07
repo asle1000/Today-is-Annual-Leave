@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dayoff.core.model.calendar.CalendarDay
 import com.dayoff.core.model.year_management.YearManagementInfo
-import com.dayoff.data.repository.CalendarEventRepository
+import com.dayoff.data.repository.CalendarRepository
 import com.dayoff.data.repository.YearManagementRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
@@ -20,7 +20,7 @@ import java.time.YearMonth
 
 class HomeViewModel(
     val handle: SavedStateHandle,
-    val calendarRepository: CalendarEventRepository,
+    val calendarRepository: CalendarRepository,
     val yearManagementRepository: YearManagementRepository,
 ) : ViewModel() {
 

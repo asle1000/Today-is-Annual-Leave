@@ -5,17 +5,15 @@ import com.dayoff.core.model.calendar.DayOfWeek
 import com.dayoff.core.network.model.CalendarEventDto
 import com.dayoff.data.datasource.CalendarEventLocalDatasource
 import com.dayoff.data.datasource.CalendarEventRemoteDataSource
-import com.dayoff.data.datasource.YearManagementLocalDataSource
 import com.dayoff.data.mapper.CalendarEventMapper
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import timber.log.Timber
 
-class CalendarEventRepositoryImpl(
+class CalendarRepositoryImpl(
     private val calendarEventRemoteDataSource: CalendarEventRemoteDataSource,
     private val calendarEventLocalDatasource: CalendarEventLocalDatasource,
-): CalendarEventRepository {
+): CalendarRepository {
     /**
      * TODO Error handling
      * Fetch remote month days

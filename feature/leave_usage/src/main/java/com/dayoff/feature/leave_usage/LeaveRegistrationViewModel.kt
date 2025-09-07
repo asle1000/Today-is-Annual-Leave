@@ -5,7 +5,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dayoff.core.model.calendar.CalendarDay
 import com.dayoff.core.model.year_management.YearManagementInfo
-import com.dayoff.data.repository.CalendarEventRepository
+import com.dayoff.data.repository.AnnualLeaveRecord
+import com.dayoff.data.repository.AnnualLeaveRepository
+import com.dayoff.data.repository.CalendarRepository
 import com.dayoff.data.repository.YearManagementRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
@@ -15,7 +17,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.launch
 import java.time.YearMonth
 
 /**
@@ -24,8 +25,9 @@ import java.time.YearMonth
  */
 class LeaveRegistrationViewModel(
     val handle: SavedStateHandle,
-    val calendarRepository: CalendarEventRepository,
+    val calendarRepository: CalendarRepository,
     val yearManagementRepository: YearManagementRepository,
+    val annualLeaveRepository: AnnualLeaveRepository,
 ) : ViewModel() {
 
     private val _yearMonth = MutableStateFlow(YearMonth.now())
@@ -33,18 +35,20 @@ class LeaveRegistrationViewModel(
 
     @OptIn(ExperimentalCoroutinesApi::class)
     val calendarEvents: StateFlow<List<CalendarDay>> = _yearMonth.flatMapLatest { ym ->
-            calendarRepository.getCalendarEventsByYear(ym.year, ym.monthValue)
-        }.stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
+        calendarRepository.getCalendarEventsByYear(ym.year, ym.monthValue)
+    }.stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
 
     fun onYearMonthChanged(year: Int, month: Int) {
         _yearMonth.value = YearMonth.of(year, month)
     }
 
-    fun fetchCalendarEvents(year: Int) = viewModelScope.launch {
-        calendarRepository.fetchCalendarEvents(year = year)
-    }
-
     fun observeYearManagementInfo(): Flow<List<YearManagementInfo>> {
         return yearManagementRepository.observeYearManagementInfo()
+    }
+
+    suspend fun registerAnnualLeave(record: AnnualLeaveRecord): Result<Long> {
+        return runCatching {
+            return@runCatching annualLeaveRepository.registerAnnualLeave(record = record)
+        }
     }
 }

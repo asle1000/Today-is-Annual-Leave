@@ -4,7 +4,7 @@ import com.dayoff.core.model.calendar.CalendarDay
 import com.dayoff.core.network.model.CalendarEventDto
 import kotlinx.coroutines.flow.Flow
 
-interface CalendarEventRepository {
+interface CalendarRepository {
     suspend fun fetchCalendarEvents(year: Int): List<CalendarEventDto>
     fun getCalendarEventsByYear(year: Int, month: Int): Flow<List<CalendarDay>>
 }
