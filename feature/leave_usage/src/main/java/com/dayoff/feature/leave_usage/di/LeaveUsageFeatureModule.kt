@@ -15,6 +15,7 @@ val leaveUsageFeatureModule = module {
             handle = handle,
             calendarRepository = get(),
             yearManagementRepository = get(),
+            annualLeaveRepository = get(),
         )
     }
 }

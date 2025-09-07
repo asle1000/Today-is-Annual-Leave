@@ -2,6 +2,7 @@ package com.dayoff.di
 
 import com.dayoff.core.db.di.dbModule
 import com.dayoff.core.network.di.networkModule
+import com.dayoff.data.di.coroutineModule
 import com.dayoff.data.di.dataModule
 import com.dayoff.feature.home.di.calendarFeatureModule
 import com.dayoff.feature.leave_usage.di.leaveUsageFeatureModule
@@ -17,6 +18,7 @@ object AppModules {
     val all: List<Module> = listOf(
         dbModule,
         networkModule,
+        coroutineModule,
         dataModule,
         splashFeatureModule,
         calendarFeatureModule,
