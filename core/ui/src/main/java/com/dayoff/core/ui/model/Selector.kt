@@ -12,7 +12,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.dayoff.core.model.calendar.AnnualLeaveType
 import com.dayoff.core.model.calendar.CalendarDay
+import com.dayoff.core.ui.R
 import com.dayoff.core.ui.TialIconRadioButtonHorizontalGroup
 import com.dayoff.core.ui.TialTextRadioButtonVerticalGroup
 import com.dayoff.core.ui.basic.BasicExposedDropdown
@@ -52,7 +54,13 @@ fun AnnualLeaveTypeSelector(
     modifier: Modifier = Modifier,
     onSelected: (AnnualLeaveType) -> Unit,
 ) {
-    val options = AnnualLeaveType.toList()
+    val options = AnnualLeaveType.entries.map { type ->
+        return@map when (type) {
+            AnnualLeaveType.FULL ->  R.drawable.img_annual_leave to type.label
+            AnnualLeaveType.HALF -> R.drawable.img_half_annual_leave to type.label
+            AnnualLeaveType.HOURLY -> R.drawable.img_particle_day_leave to type.label
+        }
+    }
 
     SubTitle(text = "사용할 연차 종류를 선택해 주세요")
 

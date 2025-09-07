@@ -1,13 +1,17 @@
 package com.dayoff.data.di
 
+import com.dayoff.core.network.api.CalendarApi
+import com.dayoff.data.datasource.AnnualLeaveLocalDataSource
+import com.dayoff.data.datasource.AnnualLeaveLocalDataSourceImpl
 import com.dayoff.data.datasource.CalendarEventLocalDatasource
 import com.dayoff.data.datasource.CalendarEventRemoteDataSource
 import com.dayoff.data.datasource.CalendarEventRemoteDataSourceImpl
-import com.dayoff.data.repository.CalendarEventRepositoryImpl
-import com.dayoff.core.network.api.CalendarApi
 import com.dayoff.data.datasource.YearManagementLocalDataSource
 import com.dayoff.data.datasource.YearManagementLocalDataSourceImpl
-import com.dayoff.data.repository.CalendarEventRepository
+import com.dayoff.data.repository.AnnualLeaveRepository
+import com.dayoff.data.repository.AnnualLeaveRepositoryImpl
+import com.dayoff.data.repository.CalendarRepository
+import com.dayoff.data.repository.CalendarRepositoryImpl
 import com.dayoff.data.repository.YearManagementRepository
 import com.dayoff.data.repository.YearManagementRepositoryImpl
 import org.koin.dsl.module
@@ -23,9 +27,13 @@ val dataModule = module {
 
     single<CalendarEventLocalDatasource> { CalendarEventLocalDatasource(calendarEventDao = get()) }
 
+    single<AnnualLeaveLocalDataSource> { AnnualLeaveLocalDataSourceImpl(dao = get()) }
+
     single<YearManagementLocalDataSource> { YearManagementLocalDataSourceImpl(yearManagementDao = get()) }
 
     single<YearManagementRepository> { YearManagementRepositoryImpl(yearManagementLocalDataSource = get()) }
 
-    single<CalendarEventRepository> { CalendarEventRepositoryImpl(calendarEventRemoteDataSource = get(), calendarEventLocalDatasource = get()) }
+    single<CalendarRepository> { CalendarRepositoryImpl(calendarEventRemoteDataSource = get(), calendarEventLocalDatasource = get()) }
+
+    single<AnnualLeaveRepository> { AnnualLeaveRepositoryImpl(dispatcherProvider = get(), annualLeaveLocalDataSource = get()) }
 }

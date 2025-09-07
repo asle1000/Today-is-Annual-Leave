@@ -34,6 +34,8 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:model"))
+
     implementation(libs.bundles.room)
     ksp(libs.androidx.room.compiler)
 
