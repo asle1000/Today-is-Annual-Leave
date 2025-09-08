@@ -56,6 +56,7 @@ object CalendarEventMapper {
             CalendarEventType.SUBSTITUTE_HOLIDAY -> DayCellIndicatorType.SUBSTITUTE_HOLIDAY
             CalendarEventType.SUNDRY_DAYS ->
                 if (isHoliday) DayCellIndicatorType.SUBSTITUTE_HOLIDAY else DayCellIndicatorType.NONE
+            CalendarEventType.ANNUAL_LEAVE -> DayCellIndicatorType.ANNUAL_LEAVE
             else -> DayCellIndicatorType.NONE
         }
     }
@@ -69,16 +70,22 @@ object CalendarEventMapper {
     ): List<CalendarDay> {
         val yearMonth = YearMonth.of(year, month)
 
-        fun resolveDayName(date: LocalDate): String {
-            return eventEntities
-                .firstOrNull { it.year == date.year && it.month == date.monthValue && it.day == date.dayOfMonth }
-                ?.name ?: ""
-        }
+        // 날짜별 이벤트(겹침 유지)
+        val eventsByDate: Map<LocalDate, List<CalendarEventEntity>> =
+            eventEntities.groupBy { LocalDate.of(it.year, it.month, it.day) }
 
-        fun resolveIndicator(date: LocalDate): DayCellIndicatorType {
-            return eventEntities
-                .firstOrNull { it.year == date.year && it.month == date.monthValue && it.day == date.dayOfMonth }
-                ?.toIndicatorType() ?: DayCellIndicatorType.NONE
+        fun resolveDayName(date: LocalDate): String =
+            eventsByDate[date]?.firstOrNull()?.name ?: ""
+
+        fun resolveIndicatorList(date: LocalDate): List<DayCellIndicatorType> {
+            return eventsByDate[date]
+                ?.asSequence()
+                ?.map { it.toIndicatorType() }
+                ?.filter { it != DayCellIndicatorType.NONE }
+                ?.distinct() // 동일 타입 중복 제거
+                ?.sortedBy { indicatorPriority(it) } // ← 우선순위 적용
+                ?.toList()
+                .orEmpty()
         }
 
         return generateCalendarDays(
@@ -86,8 +93,16 @@ object CalendarEventMapper {
             today = today,
             startDayOfWeek = startDayOfWeek,
             dayNameResolver = ::resolveDayName,
-            indicatorResolver = ::resolveIndicator,
+            indicatorResolver = ::resolveIndicatorList
         )
+    }
+
+    /** 우선순위: 휴일(0) → 대체 휴일(1) → 연차(2) → 기타(3) */
+    private fun indicatorPriority(type: DayCellIndicatorType): Int = when (type) {
+        DayCellIndicatorType.HOLIDAY -> 0
+        DayCellIndicatorType.SUBSTITUTE_HOLIDAY -> 1
+        DayCellIndicatorType.ANNUAL_LEAVE -> 2
+        else -> 3
     }
 
     private fun generateCalendarDays(
@@ -95,51 +110,53 @@ object CalendarEventMapper {
         today: LocalDate,
         startDayOfWeek: DayOfWeek,
         dayNameResolver:  (LocalDate) -> String,
-        indicatorResolver: (LocalDate) -> DayCellIndicatorType
+        indicatorResolver: (LocalDate) -> List<DayCellIndicatorType>
     ): List<CalendarDay> {
         val firstDayOfMonth = yearMonth.atDay(1)
         val lastDayOfMonth = yearMonth.atEndOfMonth()
+        // ✅ ordinal 대신 value 사용(1=월 … 7=일)
+
         val offset = ((firstDayOfMonth.dayOfWeek.value - startDayOfWeek.ordinal + 7) % 7)
 
         val days = mutableListOf<CalendarDay>()
 
-        val prevMonth = yearMonth.minusMonths(1)
-        val prevMonthLastDay = prevMonth.atEndOfMonth().dayOfMonth
+        // 이전 달 패딩
+        val previousMonth = yearMonth.minusMonths(1)
+        val previousMonthLastDay = previousMonth.atEndOfMonth().dayOfMonth
         repeat(offset) { i ->
-            days.add(
-                CalendarDay(
-                    day = prevMonthLastDay - offset + 1 + i,
-                    name = dayNameResolver(prevMonth.atDay(prevMonthLastDay - offset + 1 + i)),
-                    monthType = MonthType.PREVIOUS,
-                    cellType = DayCellType.DISABLED,
-                    indicatorType = DayCellIndicatorType.NONE
-                )
+            val day = previousMonthLastDay - offset + 1 + i
+            val date = previousMonth.atDay(day)
+            days += CalendarDay(
+                day = day,
+                name = "",
+                monthType = MonthType.PREVIOUS,
+                cellType = DayCellType.DISABLED,
+                indicatorType = emptyList()
             )
         }
 
+        // 이번 달
         for (day in 1..lastDayOfMonth.dayOfMonth) {
             val date = yearMonth.atDay(day)
-            days.add(
-                CalendarDay(
-                    day = day,
-                    name = dayNameResolver(date),
-                    monthType = MonthType.CURRENT,
-                    cellType = if (date == today) DayCellType.TODAY else DayCellType.ENABLED,
-                    indicatorType = indicatorResolver(date)
-                )
+            days += CalendarDay(
+                day = day,
+                name = dayNameResolver(date),
+                monthType = MonthType.CURRENT,
+                cellType = if (date == today) DayCellType.TODAY else DayCellType.ENABLED,
+                indicatorType = indicatorResolver(date)
             )
         }
 
+        // 다음 달 패딩
         val remaining = (7 - days.size % 7).let { if (it == 7) 0 else it }
         for (day in 1..remaining) {
-            days.add(
-                CalendarDay(
-                    day = day,
-                    name = dayNameResolver(lastDayOfMonth.plusDays(day.toLong())),
-                    monthType = MonthType.NEXT,
-                    cellType = DayCellType.DISABLED,
-                    indicatorType = DayCellIndicatorType.NONE
-                )
+            val date = lastDayOfMonth.plusDays(day.toLong())
+            days += CalendarDay(
+                day = day,
+                name = "",
+                monthType = MonthType.NEXT,
+                cellType = DayCellType.DISABLED,
+                indicatorType = emptyList()
             )
         }
 

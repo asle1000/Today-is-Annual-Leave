@@ -34,14 +34,12 @@ fun PreviewAllDayCellCases() {
         }
         cellTypes.forEach { cellType ->
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                indicatorTypes.forEach { indicatorType ->
-                    DayCell(
-                        day = 10,
-                        cellType = cellType,
-                        indicatorType = indicatorType,
-                        modifier = Modifier.size(48.dp)
-                    )
-                }
+                DayCell(
+                    day = 10,
+                    cellType = cellType,
+                    indicatorTypeList = indicatorTypes.toList(),
+                    modifier = Modifier.size(48.dp)
+                )
             }
         }
     }

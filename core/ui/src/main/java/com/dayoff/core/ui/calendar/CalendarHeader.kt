@@ -24,7 +24,6 @@ fun CalendarHeader(
     month: Int,
     onPrevMonth: () -> Unit,
     onNextMonth: () -> Unit,
-    onRefresh: () -> Unit,
 ) {
     val type = LocalTialTypes.current
     val color = LocalTialColors.current
@@ -71,15 +70,5 @@ fun CalendarHeader(
         }
 
         Spacer(modifier = Modifier.weight(1f))
-
-        CircleRippleButton(
-            contentPadding = 4.dp,
-            clickable = onRefresh,
-        ) {
-            Icon(
-                painter = painterResource(id = R.drawable.ic_refresh),
-                contentDescription = "icon refresh button",
-            )
-        }
     }
 }

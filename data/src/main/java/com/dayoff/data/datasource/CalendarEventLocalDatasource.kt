@@ -19,7 +19,7 @@ class CalendarEventLocalDatasource(
             )
         }
 
-    fun getCalendarEventsByYear(year: Int): Flow<List<CalendarEventEntity>>  {
+    fun observeCalendarEventsByYear(year: Int): Flow<List<CalendarEventEntity>>  {
         return calendarEventDao.getEventsByYear(year)
     }
 } 

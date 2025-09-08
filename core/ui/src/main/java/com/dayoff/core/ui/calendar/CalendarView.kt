@@ -1,10 +1,12 @@
 package com.dayoff.core.ui.calendar
 
 import android.widget.Toast
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.dp
 import com.dayoff.core.model.calendar.CalendarDay
 import com.dayoff.core.model.calendar.DayCellType
 import com.dayoff.core.model.calendar.DayOfWeek
@@ -30,7 +32,6 @@ fun CalendarView(
     onYearMonthChanged: (year: Int, month: Int) -> Unit,
     onSelectionChanged: OnSelectionChangedListener? = null,
     onInspect: ((LocalDate) -> Unit)? = null,
-    onRefresh: () -> Unit = {},
 ) {
     val context = LocalContext.current
 
@@ -51,7 +52,7 @@ fun CalendarView(
         }
 
     MonthCalendar(
-        modifier = modifier,
+        modifier = modifier.padding(horizontal = 12.dp),
         days = daysWithSelection,
         yearMonth = yearMonth,
         startDayOfWeek = startDayOfWeek,
@@ -90,7 +91,6 @@ fun CalendarView(
                 Toast.makeText(context, "마지막 달 입니다.", Toast.LENGTH_SHORT).show()
             }
         },
-        onRefresh = onRefresh,
     )
 }
 
