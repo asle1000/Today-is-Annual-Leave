@@ -38,34 +38,29 @@ class CalendarRepositoryImpl(
     }
 
     override fun getCalendarEventsByYear(year: Int, month: Int): Flow<List<CalendarDay>> {
+        val firstDayOfMonth = YearMonth.of(year, month).atDay(1)
+        val lastDayOfMonth = YearMonth.of(year, month).atEndOfMonth()
 
-        val firstDayOfTargetMonth = YearMonth.of(year, month).atDay(1)
-        val lastDayOfTargetMonth = YearMonth.of(year, month).atEndOfMonth()
-
-        val annualLeaveFlow = annualLeaveLocalDataSource.observeByYear(year)
-        val calendarEventFlow = calendarEventLocalDatasource.observeCalendarEventsByYear(year)
+        val annualLeaveFlow = annualLeaveLocalDataSource.observeByMonth(year = year, month = month)
+        val calendarEventFlow = calendarEventLocalDatasource.observeCalendarEventsByYear(year = year)
 
         return combine(annualLeaveFlow, calendarEventFlow) { annualLeaveEntities, calendarEventEntities ->
-            // 1) 기존 캘린더 이벤트: 해당 월만 필터링 (중복 제거 없음)
-            val monthlyCalendarEvents: List<CalendarEventEntity> =
-                calendarEventEntities.filter { it.year == year && it.month == month }
+            val existingMonthlyEvents: List<CalendarEventEntity> = calendarEventEntities
 
-            // 2) 연차 엔티티를 월 범위로 클램핑하여 날짜별 이벤트로 전개 (중복 제거 없음)
-            val monthlyAnnualLeaveEvents = buildList {
+            val convertedAnnualLeaveEvents = buildList {
                 annualLeaveEntities.forEach { annualLeaveEntity ->
                     val annualLeaveRecord = annualLeaveEntity.toDto()
 
                     val originalStartDate = annualLeaveRecord.startYmd.toLocalDate()
                     val originalEndDate = annualLeaveRecord.endYmd.toLocalDate()
 
-                    val startDateInclusive =
-                        if (originalStartDate.isAfter(firstDayOfTargetMonth)) originalStartDate else firstDayOfTargetMonth
-                    val endDateInclusive =
-                        if (originalEndDate.isBefore(lastDayOfTargetMonth)) originalEndDate else lastDayOfTargetMonth
+                    val startDateInclusive = maxOf(a = originalStartDate, b = firstDayOfMonth)
+                    val endDateInclusive = minOf(a = originalEndDate, b = lastDayOfMonth)
 
-                    if (startDateInclusive.isAfter(endDateInclusive)) return@forEach // 이 달과 겹치지 않음
+                    if (startDateInclusive.isAfter(endDateInclusive)) return@forEach
 
                     var currentDate = startDateInclusive
+
                     while (!currentDate.isAfter(endDateInclusive)) {
                         add(
                             CalendarEventEntity(
@@ -73,7 +68,7 @@ class CalendarRepositoryImpl(
                                 year = currentDate.year,
                                 month = currentDate.monthValue,
                                 day = currentDate.dayOfMonth,
-                                type = CalendarEventType.ANNUAL_LEAVE, // 프로젝트 타입에 맞게 교체 가능 (예: ANNUAL_LEAVE)
+                                type = CalendarEventType.ANNUAL_LEAVE,
                                 isHoliday = false
                             )
                         )
@@ -82,10 +77,8 @@ class CalendarRepositoryImpl(
                 }
             }
 
-            // 3) 병합: 기존 이벤트 먼저, 연차 이벤트 나중(= 기존 이벤트 우선 표시)
-            val mergedEventEntities: List<CalendarEventEntity> = monthlyCalendarEvents + monthlyAnnualLeaveEvents
+            val mergedEventEntities: List<CalendarEventEntity> = existingMonthlyEvents + convertedAnnualLeaveEvents
 
-            // 4) CalendarDay로 변환 (여러 건이 있어도 그대로 전달; 우선순위는 리스트 순서)
             CalendarEventMapper.mapEntitiesToCalendarDays(
                 year = year,
                 month = month,
