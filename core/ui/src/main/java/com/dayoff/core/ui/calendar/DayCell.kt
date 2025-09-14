@@ -29,7 +29,7 @@ fun DayCell(
     modifier: Modifier = Modifier,
     day: Int,
     cellType: DayCellType = DayCellType.ENABLED,
-    indicatorType: DayCellIndicatorType = DayCellIndicatorType.NONE,
+    indicatorTypeList: List<DayCellIndicatorType> = listOf(DayCellIndicatorType.NONE),
     onClick: () -> Unit = {},
 ) {
     val color = LocalTialColors.current
@@ -66,7 +66,16 @@ fun DayCell(
                 )
             }
         }
-        DayCellIndicator(indicatorType = indicatorType)
+
+        Row(horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically) {
+            indicatorTypeList.map { type ->
+                DayCellIndicator(indicatorType = type)
+
+                if (indicatorTypeList.last() != type) Spacer(modifier = Modifier.width(width = 2.dp))
+            }
+        }
+
     }
 }
 
@@ -103,7 +112,6 @@ fun DayCellIndicator(
         )
 
         if (showLabel) {
-
             Spacer(modifier = Modifier.width(width = 6.dp))
             Text(indicatorType.label, color = color.text.surface.tertiary, style = type.bodySmall)
         }

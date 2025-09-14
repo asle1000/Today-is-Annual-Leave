@@ -9,7 +9,8 @@ enum class CalendarEventType {
     SUBSTITUTE_HOLIDAY,
     ANNIVERSARIES,
     DIVISIONS_24,
-    SUNDRY_DAYS;
+    SUNDRY_DAYS,
+    ANNUAL_LEAVE;
 
     companion object {
         fun from(value: String): CalendarEventType = try {

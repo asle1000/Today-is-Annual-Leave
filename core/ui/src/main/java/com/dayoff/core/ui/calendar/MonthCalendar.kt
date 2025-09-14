@@ -24,7 +24,6 @@ fun MonthCalendar(
     onDayClick: (Int, MonthType) -> Unit = { _, _ -> },
     onPrevMonth: () -> Unit = {},
     onNextMonth: () -> Unit = {},
-    onRefresh: () -> Unit = {},
 ) {
     val color = LocalTialColors.current
     val shape = LocalTialShapes.current
@@ -43,7 +42,6 @@ fun MonthCalendar(
             month = yearMonth.monthValue,
             onPrevMonth = onPrevMonth,
             onNextMonth = onNextMonth,
-            onRefresh = onRefresh
         )
 
         Spacer(Modifier.height(16.dp))

@@ -5,5 +5,5 @@ data class CalendarDay(
     val name: String,
     val monthType: MonthType,
     val cellType: DayCellType,
-    val indicatorType: DayCellIndicatorType
+    val indicatorType: List<DayCellIndicatorType>
 )

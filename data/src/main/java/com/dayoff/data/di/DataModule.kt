@@ -33,7 +33,9 @@ val dataModule = module {
 
     single<YearManagementRepository> { YearManagementRepositoryImpl(yearManagementLocalDataSource = get()) }
 
-    single<CalendarRepository> { CalendarRepositoryImpl(calendarEventRemoteDataSource = get(), calendarEventLocalDatasource = get()) }
+    single<CalendarRepository> { CalendarRepositoryImpl(calendarEventRemoteDataSource = get(), calendarEventLocalDatasource = get(),
+        annualLeaveLocalDataSource = get()
+    ) }
 
     single<AnnualLeaveRepository> { AnnualLeaveRepositoryImpl(dispatcherProvider = get(), annualLeaveLocalDataSource = get()) }
 }
