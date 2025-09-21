@@ -2,6 +2,7 @@ package com.dayoff.data.datasource
 
 import com.dayoff.core.db.dao.AnnualLeaveRecordDao
 import com.dayoff.core.db.entity.AnnualLeaveRecordEntity
+import com.dayoff.core.db.entity.LeaveRecordWithHashtags
 import kotlinx.coroutines.flow.Flow
 import java.util.Calendar
 import java.util.Locale
@@ -17,28 +18,28 @@ class AnnualLeaveLocalDataSourceImpl(
     private val locale: Locale = Locale.KOREA
 ) : AnnualLeaveLocalDataSource {
 
-    override fun observeByRange(startYmd: Int, endYmd: Int): Flow<List<AnnualLeaveRecordEntity>> =
+    override fun observeByRange(startYmd: Int, endYmd: Int): Flow<List<LeaveRecordWithHashtags>> =
         dao.observeByRangeOverlap(startYmd = startYmd, endYmd = endYmd)
 
-    override suspend fun getByRange(startYmd: Int, endYmd: Int): List<AnnualLeaveRecordEntity> =
+    override suspend fun getByRange(startYmd: Int, endYmd: Int): List<LeaveRecordWithHashtags> =
         dao.getByRangeOverlap(startYmd = startYmd, endYmd = endYmd)
 
-    override fun observeByMonth(year: Int, month: Int): Flow<List<AnnualLeaveRecordEntity>> {
+    override fun observeByMonth(year: Int, month: Int): Flow<List<LeaveRecordWithHashtags>> {
         val (startYmd, endYmd) = calculateMonthYmdRange(year = year, month = month)
         return dao.observeByRangeOverlap(startYmd = startYmd, endYmd = endYmd)
     }
 
-    override suspend fun getByMonth(year: Int, month: Int): List<AnnualLeaveRecordEntity> {
+    override suspend fun getByMonth(year: Int, month: Int): List<LeaveRecordWithHashtags> {
         val (startYmd, endYmd) = calculateMonthYmdRange(year = year, month = month)
         return dao.getByRangeOverlap(startYmd = startYmd, endYmd = endYmd)
     }
 
-    override fun observeByYear(year: Int): Flow<List<AnnualLeaveRecordEntity>> {
+    override fun observeByYear(year: Int): Flow<List<LeaveRecordWithHashtags>> {
         val (startYmd, endYmd) = calculateYearYmdRange(year)
         return dao.observeByRangeOverlap(startYmd = startYmd, endYmd = endYmd)
     }
 
-    override suspend fun getByYear(year: Int): List<AnnualLeaveRecordEntity> {
+    override suspend fun getByYear(year: Int): List<LeaveRecordWithHashtags> {
         val (startYmd, endYmd) = calculateYearYmdRange(year)
         return dao.getByRangeOverlap(startYmd = startYmd, endYmd = endYmd)
     }

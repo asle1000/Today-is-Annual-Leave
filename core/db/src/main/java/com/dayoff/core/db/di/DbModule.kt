@@ -7,6 +7,7 @@ import com.dayoff.core.db.dao.CalendarEventDao
 import com.dayoff.core.db.TialDatabase
 import com.dayoff.core.db.dao.AnnualLeaveRecordDao
 import com.dayoff.core.db.dao.HashtagDao
+import com.dayoff.core.db.dao.HashtagMapDao
 import com.dayoff.core.db.dao.YearManagementDao
 import com.dayoff.core.db.entity.HashtagEntity
 import kotlinx.coroutines.CoroutineScope
@@ -46,6 +47,8 @@ val dbModule = module {
     factory<AnnualLeaveRecordDao> { get<TialDatabase>().annualLeaveRecordDao() }
 
     factory<HashtagDao> { get<TialDatabase>().hashtagDao() }
+
+    factory<HashtagMapDao> { get<TialDatabase>().hashtagMapDao() }
 }
 
 private fun makeHashtagTableData(): List<HashtagEntity> = listOf(
