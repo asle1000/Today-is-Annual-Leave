@@ -1,5 +1,6 @@
 package com.dayoff.data.repository
 
+import HashtagCategory
 import com.dayoff.core.model.calendar.AnnualLeaveType
 import com.dayoff.data.datasource.AnnualLeaveLocalDataSource
 import com.dayoff.data.mapper.AnnualLeaveRecordMapper.toEntity
@@ -28,6 +29,14 @@ data class AnnualLeaveRecord(
     val minutes: Int?,
     val isConsumed: Boolean,
     val type: AnnualLeaveType,
-    val memo: String?,
+    val memo: String? = null,
+    val hashTags: List<Hashtag> ?= emptyList(),
     val modifiedAt: Long,
+)
+
+data class Hashtag(
+    val id: Long,
+    val category: HashtagCategory,
+    val emoji: String,
+    val name: String,
 )

@@ -4,8 +4,10 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Transaction
 import androidx.room.Update
 import com.dayoff.core.db.entity.AnnualLeaveRecordEntity
+import com.dayoff.core.db.entity.LeaveRecordWithHashtags
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -15,6 +17,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface AnnualLeaveRecordDao {
 
+    @Transaction
     @Query(
         """
         SELECT *
@@ -23,8 +26,9 @@ interface AnnualLeaveRecordDao {
         ORDER BY startDate ASC, endDate ASC, id ASC
     """
     )
-    suspend fun getByRangeOverlap(startYmd: Int, endYmd: Int): List<AnnualLeaveRecordEntity>
+    suspend fun getByRangeOverlap(startYmd: Int, endYmd: Int): List<LeaveRecordWithHashtags>
 
+    @Transaction
     @Query(
         """
         SELECT *
@@ -33,7 +37,7 @@ interface AnnualLeaveRecordDao {
         ORDER BY startDate ASC, endDate ASC, id ASC
     """
     )
-    fun observeByRangeOverlap(startYmd: Int, endYmd: Int): Flow<List<AnnualLeaveRecordEntity>>
+    fun observeByRangeOverlap(startYmd: Int, endYmd: Int): Flow<List<LeaveRecordWithHashtags>>
 
     @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun insert(entity: AnnualLeaveRecordEntity): Long

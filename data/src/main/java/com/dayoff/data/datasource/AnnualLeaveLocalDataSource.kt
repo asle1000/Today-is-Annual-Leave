@@ -1,6 +1,7 @@
 package com.dayoff.data.datasource
 
 import com.dayoff.core.db.entity.AnnualLeaveRecordEntity
+import com.dayoff.core.db.entity.LeaveRecordWithHashtags
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -11,22 +12,22 @@ interface AnnualLeaveLocalDataSource {
 
 
     /** [startYmd, endYmd] 겹치는 레코드 스트림 반환 */
-    fun observeByRange(startYmd: Int, endYmd: Int): Flow<List<AnnualLeaveRecordEntity>>
+    fun observeByRange(startYmd: Int, endYmd: Int): Flow<List<LeaveRecordWithHashtags>>
 
     /** [startYmd, endYmd] 겹치는 레코드 리스트 반환 */
-    suspend fun getByRange(startYmd: Int, endYmd: Int): List<AnnualLeaveRecordEntity>
+    suspend fun getByRange(startYmd: Int, endYmd: Int): List<LeaveRecordWithHashtags>
 
     /** (year, month) 겹치는 레코드 스트림 반환 */
-    fun observeByMonth(year: Int, month: Int): Flow<List<AnnualLeaveRecordEntity>>
+    fun observeByMonth(year: Int, month: Int): Flow<List<LeaveRecordWithHashtags>>
 
     /** (year, month) 겹치는 레코드 리스트 반환 */
-    suspend fun getByMonth(year: Int, month: Int): List<AnnualLeaveRecordEntity>
+    suspend fun getByMonth(year: Int, month: Int): List<LeaveRecordWithHashtags>
 
     /** year 겹치는 레코드 스트림 반환 */
-    fun observeByYear(year: Int): Flow<List<AnnualLeaveRecordEntity>>
+    fun observeByYear(year: Int): Flow<List<LeaveRecordWithHashtags>>
 
     /** year 겹치는 레코드 리스트 반환 */
-    suspend fun getByYear(year: Int): List<AnnualLeaveRecordEntity>
+    suspend fun getByYear(year: Int): List<LeaveRecordWithHashtags>
 
     /** 단건 생성 결과 id 반환 */
     suspend fun insert(entity: AnnualLeaveRecordEntity): Long
