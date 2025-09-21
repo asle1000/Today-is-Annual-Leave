@@ -3,12 +3,14 @@ package com.dayoff.core.ui
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
@@ -110,23 +112,23 @@ fun TialIconRadioButton(
             .clickable(onClick = onClick, role = Role.RadioButton),
         color = backgroundColor,
     ) {
-        Column(
-//            modifier = Modifier.padding(vertical = 20.dp, horizontal = 34.dp),
-            modifier = Modifier.padding(vertical = 20.dp, horizontal = 16.dp),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally,
+        Row(
+            modifier = Modifier.padding(vertical = 20.dp, horizontal = 24.dp),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             Icon(
+                modifier = Modifier.size(32.dp),
                 painter = painterResource(id = iconRes),
                 contentDescription = "radio_button",
                 tint = Color.Unspecified,
             )
 
-            Spacer(modifier = Modifier.height(height = 8.dp))
-
             Text(
+                modifier = Modifier.weight(0.8f),
                 text = label,
-                style = typography.labelMedium.copy(color = colors.text.surface.primary),
+
+                style = typography.titleMedium.copy(color = colors.text.surface.primary),
                 textAlign = TextAlign.Center,
             )
         }
@@ -187,28 +189,63 @@ fun TialIconRadioButtonHorizontalGroup(
     }
 }
 
-@Preview(showBackground = true)
 @Composable
-fun TialRadioButtonGroupPreview() {
-    val options = listOf(
-        "연차 소진" to "사용 가능한 연차 일수가 줄어듭니다.",
-        "연차 미소진" to "사용 가능한 연차는 그대로! 기록으로만 남겨요.",
-    )
+fun TialIconRadioButtonGridGroup(
+    modifier: Modifier = Modifier,
+    options: List<Pair<Int, String>>,
+    initialSelectedIndex: Int = 0,
+    columns: Int = 2,
+    onSelectionChanged: (Int) -> Unit = {}
+) {
+    var selectedIndex by remember { mutableIntStateOf(initialSelectedIndex) }
 
-    TialTextRadioButtonVerticalGroup(
-        options = options, onSelectionChanged = { _ ->
-        })
+    FlowRow(
+        modifier = modifier,
+        maxItemsInEachRow = columns,
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+    ) {
+        options.forEachIndexed { index, (img, label) ->
+            Box(Modifier.weight(1f, fill = true)) {
+                TialIconRadioButton(
+                    modifier = Modifier.fillMaxWidth(),
+                    iconRes = img,
+                    label = label,
+                    checked = selectedIndex == index,
+                    onClick = {
+                        if (selectedIndex != index) {
+                            selectedIndex = index
+                            onSelectionChanged(index)
+                        }
+                    }
+                )
+            }
+        }
+    }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun TialIconRadioButtonGroupPreview() {
-    val options = listOf(
-        R.drawable.img_annual_leave to "연차",
-        R.drawable.img_half_annual_leave to "반차",
-        R.drawable.img_particle_day_leave to "시간차",
-    )
+    @Preview(showBackground = true)
+    @Composable
+    fun TialRadioButtonGroupPreview() {
+        val options = listOf(
+            "연차 소진" to "사용 가능한 연차 일수가 줄어듭니다.",
+            "연차 미소진" to "사용 가능한 연차는 그대로! 기록으로만 남겨요.",
+        )
 
-    TialIconRadioButtonHorizontalGroup(options = options, onSelectionChanged = { _ -> })
-}
+        TialTextRadioButtonVerticalGroup(
+            options = options, onSelectionChanged = { _ ->
+            })
+    }
+
+    @Preview(showBackground = true)
+    @Composable
+    fun TialIconRadioButtonGroupPreview() {
+        val options = listOf(
+            R.drawable.img_annual_leave to "연차",
+            R.drawable.img_half_annual_leave to "반차",
+            R.drawable.img_particle_day_leave to "시간차",
+        )
+
+        TialIconRadioButtonHorizontalGroup(options = options, onSelectionChanged = { _ -> })
+    }
 
