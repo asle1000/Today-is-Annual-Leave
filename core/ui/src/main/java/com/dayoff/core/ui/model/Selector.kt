@@ -11,11 +11,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dayoff.core.model.calendar.AnnualLeaveType
 import com.dayoff.core.model.calendar.CalendarDay
 import com.dayoff.core.ui.R
-import com.dayoff.core.ui.TialIconRadioButtonHorizontalGroup
+import com.dayoff.core.ui.TialIconRadioButtonGridGroup
 import com.dayoff.core.ui.TialTextRadioButtonVerticalGroup
 import com.dayoff.core.ui.basic.BasicExposedDropdown
 import com.dayoff.core.ui.calendar.CalendarView
@@ -50,14 +51,15 @@ fun AnnualLeaveConsumptionSelector(
 }
 
 @Composable
-fun AnnualLeaveTypeSelector(
+fun LeaveTypeSelector(
     modifier: Modifier = Modifier,
     onSelected: (AnnualLeaveType) -> Unit,
 ) {
     val options = AnnualLeaveType.entries.map { type ->
         return@map when (type) {
-            AnnualLeaveType.FULL ->  R.drawable.img_annual_leave to type.label
-            AnnualLeaveType.HALF -> R.drawable.img_half_annual_leave to type.label
+            AnnualLeaveType.FULL -> R.drawable.img_annual_leave to type.label
+            AnnualLeaveType.HALF_AM -> R.drawable.img_half_annual_leave to type.label
+            AnnualLeaveType.HALF_FM -> R.drawable.img_half_annual_leave to type.label
             AnnualLeaveType.HOURLY -> R.drawable.img_particle_day_leave to type.label
         }
     }
@@ -66,12 +68,13 @@ fun AnnualLeaveTypeSelector(
 
     Spacer(modifier = Modifier.height(height = 12.dp))
 
-    TialIconRadioButtonHorizontalGroup(
+    TialIconRadioButtonGridGroup(
         modifier = modifier,
         options = options,
+        columns = 2,
         onSelectionChanged = { idx ->
             onSelected(AnnualLeaveType.entries[idx])
-        },
+        }
     )
 }
 
@@ -150,5 +153,15 @@ fun TimePickerSelector(
             )
         }
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewAnnualLeaveConsumptionSelector() {
+    LeaveTypeSelector(
+        modifier = Modifier, onSelected = { _ ->
+
+        }
+    )
 }
 

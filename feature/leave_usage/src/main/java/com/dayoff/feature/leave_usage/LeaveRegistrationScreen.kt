@@ -47,7 +47,7 @@ import com.dayoff.core.ui.button.TialButton
 import com.dayoff.designsystem.theme.LocalTialColors
 import com.dayoff.core.ui.model.AnnualLeaveConsumptionSelector
 import com.dayoff.core.model.calendar.AnnualLeaveType
-import com.dayoff.core.ui.model.AnnualLeaveTypeSelector
+import com.dayoff.core.ui.model.LeaveTypeSelector
 import com.dayoff.core.ui.model.ConsumptionType
 import com.dayoff.core.ui.model.LeaveSelector
 import com.dayoff.core.ui.model.Selection
@@ -186,10 +186,12 @@ fun LeaveRegistrationScreen(
 
                         Spacer(Modifier.height(40.dp))
 
-                        AnnualLeaveTypeSelector(
-                            modifier = Modifier.fillMaxWidth(), onSelected = {
+                        LeaveTypeSelector(
+                            modifier = Modifier.fillMaxWidth(),
+                            onSelected = {
                                 selectedAnnualLeaveType = it
-                            })
+                            },
+                        )
 
                         Spacer(Modifier.height(40.dp))
 
@@ -289,7 +291,7 @@ fun LeaveRegistrationScreen(
                     val count = dates.size
 
                     when (selectedAnnualLeaveType) {
-                        AnnualLeaveType.FULL, AnnualLeaveType.HALF -> {
+                        AnnualLeaveType.FULL, AnnualLeaveType.HALF_AM, AnnualLeaveType.HALF_FM -> {
                             if (count == 0) {
                                 coroutineScope.launch { showSnack("사용할 날짜를 선택해 주세요.") }
                                 return@TialButton
@@ -299,7 +301,9 @@ fun LeaveRegistrationScreen(
                             val endYmd = dates.maxOf(LocalDate::toYmd)
 
                             val totalMinutes =
-                                if (selectedAnnualLeaveType == AnnualLeaveType.HALF) 4 * 60
+                                if (selectedAnnualLeaveType == AnnualLeaveType.HALF_AM ||
+                                    selectedAnnualLeaveType == AnnualLeaveType.HALF_FM
+                                ) 4 * 60
                                 else count * 8 * 60
 
                             val record = AnnualLeaveRecord(
@@ -337,7 +341,8 @@ fun LeaveRegistrationScreen(
                                 return@TialButton
                             }
 
-                            val usedMinutes = (hour.toIntOrNull() ?: 0) * 60 + (minutes.toIntOrNull() ?: 0)
+                            val usedMinutes =
+                                (hour.toIntOrNull() ?: 0) * 60 + (minutes.toIntOrNull() ?: 0)
 
 
                             if (usedMinutes == 0) {
