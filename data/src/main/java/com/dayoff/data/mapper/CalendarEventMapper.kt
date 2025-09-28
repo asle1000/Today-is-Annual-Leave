@@ -70,7 +70,6 @@ object CalendarEventMapper {
     ): List<CalendarDay> {
         val yearMonth = YearMonth.of(year, month)
 
-        // 날짜별 이벤트(겹침 유지)
         val eventsByDate: Map<LocalDate, List<CalendarEventEntity>> =
             eventEntities.groupBy { LocalDate.of(it.year, it.month, it.day) }
 
@@ -82,8 +81,8 @@ object CalendarEventMapper {
                 ?.asSequence()
                 ?.map { it.toIndicatorType() }
                 ?.filter { it != DayCellIndicatorType.NONE }
-                ?.distinct() // 동일 타입 중복 제거
-                ?.sortedBy { indicatorPriority(it) } // ← 우선순위 적용
+                ?.distinct()
+                ?.sortedBy { indicatorPriority(it) }
                 ?.toList()
                 .orEmpty()
         }
@@ -97,7 +96,6 @@ object CalendarEventMapper {
         )
     }
 
-    /** 우선순위: 휴일(0) → 대체 휴일(1) → 연차(2) → 기타(3) */
     private fun indicatorPriority(type: DayCellIndicatorType): Int = when (type) {
         DayCellIndicatorType.HOLIDAY -> 0
         DayCellIndicatorType.SUBSTITUTE_HOLIDAY -> 1
@@ -109,37 +107,36 @@ object CalendarEventMapper {
         yearMonth: YearMonth,
         today: LocalDate,
         startDayOfWeek: DayOfWeek,
-        dayNameResolver:  (LocalDate) -> String,
+        dayNameResolver: (LocalDate) -> String,
         indicatorResolver: (LocalDate) -> List<DayCellIndicatorType>
     ): List<CalendarDay> {
         val firstDayOfMonth = yearMonth.atDay(1)
         val lastDayOfMonth = yearMonth.atEndOfMonth()
-        // ✅ ordinal 대신 value 사용(1=월 … 7=일)
 
-        val offset = ((firstDayOfMonth.dayOfWeek.value - startDayOfWeek.ordinal + 7) % 7)
+        val firstDow = firstDayOfMonth.dayOfWeek.value
+        val startDow = if(startDayOfWeek == DayOfWeek.MONDAY) 1 else startDayOfWeek.ordinal
+        val offset = (firstDow - startDow + 7) % 7
 
         val days = mutableListOf<CalendarDay>()
 
-        // 이전 달 패딩
-        val previousMonth = yearMonth.minusMonths(1)
-        val previousMonthLastDay = previousMonth.atEndOfMonth().dayOfMonth
+        val prevMonth = yearMonth.minusMonths(1)
+        val prevMonthLastDay = prevMonth.atEndOfMonth().dayOfMonth
         repeat(offset) { i ->
-            val day = previousMonthLastDay - offset + 1 + i
-            val date = previousMonth.atDay(day)
+            val dayOfPrev = prevMonthLastDay - offset + 1 + i
+            val date = prevMonth.atDay(dayOfPrev)
             days += CalendarDay(
-                day = day,
-                name = "",
+                day = date.dayOfMonth,
+                name = dayNameResolver(date),
                 monthType = MonthType.PREVIOUS,
                 cellType = DayCellType.DISABLED,
                 indicatorType = emptyList()
             )
         }
 
-        // 이번 달
-        for (day in 1..lastDayOfMonth.dayOfMonth) {
-            val date = yearMonth.atDay(day)
+        for (d in 1..lastDayOfMonth.dayOfMonth) {
+            val date = yearMonth.atDay(d)
             days += CalendarDay(
-                day = day,
+                day = date.dayOfMonth,
                 name = dayNameResolver(date),
                 monthType = MonthType.CURRENT,
                 cellType = if (date == today) DayCellType.TODAY else DayCellType.ENABLED,
@@ -147,17 +144,34 @@ object CalendarEventMapper {
             )
         }
 
-        // 다음 달 패딩
-        val remaining = (7 - days.size % 7).let { if (it == 7) 0 else it }
-        for (day in 1..remaining) {
-            val date = lastDayOfMonth.plusDays(day.toLong())
+        val remainder = days.size % 7
+        val padToFullWeek = if (remainder == 0) 0 else 7 - remainder
+
+        repeat(padToFullWeek) { i ->
+            val date = lastDayOfMonth.plusDays((i + 1).toLong())
             days += CalendarDay(
-                day = day,
-                name = "",
+                day = date.dayOfMonth,
+                name = dayNameResolver(date),
                 monthType = MonthType.NEXT,
                 cellType = DayCellType.DISABLED,
                 indicatorType = emptyList()
             )
+        }
+
+        val totalCells = 42
+        if (days.size < totalCells) {
+            val need = totalCells - days.size
+            val startPlus = padToFullWeek + 1
+            repeat(need) { i ->
+                val date = lastDayOfMonth.plusDays((startPlus + i).toLong())
+                days += CalendarDay(
+                    day = date.dayOfMonth,
+                    name = dayNameResolver(date),
+                    monthType = MonthType.NEXT,
+                    cellType = DayCellType.DISABLED,
+                    indicatorType = emptyList()
+                )
+            }
         }
 
         return days
