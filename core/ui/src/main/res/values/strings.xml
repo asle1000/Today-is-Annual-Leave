@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="DESCRIPTION_ICON_CALENDAR">icon_overview_calendar</string>
+    <string name="DESCRIPTION_ICON_STAMP">icon_overview_stamp</string>
+    <string name="DESCRIPTION_ICON_PREVIOUS">icon_previous</string>
+    <string name="DESCRIPTION_ICON_FORWARD">icon_forward</string>
+    <string name="DESCRIPTION_ICON_EDIT_SQUARE">icon_edit_square</string>
+    <string name="DESCRIPTION_LABEL_SWITCH_THUMB">label_switch_thumb</string>
+</resources>
