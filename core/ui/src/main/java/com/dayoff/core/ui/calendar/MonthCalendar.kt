@@ -1,9 +1,5 @@
 package com.dayoff.core.ui.calendar
 
-/**
- *  Created by KyunghyunPark at 2025. 10. 6.
-
- */
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -31,6 +27,7 @@ fun MonthCalendar(
 ) {
     val color = LocalTialColors.current
     val shape = LocalTialShapes.current
+
 
     Column(
         modifier = modifier
