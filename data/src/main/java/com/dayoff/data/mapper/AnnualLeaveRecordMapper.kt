@@ -3,8 +3,8 @@ package com.dayoff.data.mapper
 import com.dayoff.core.db.entity.AnnualLeaveRecordEntity
 import com.dayoff.core.db.entity.HashtagEntity
 import com.dayoff.core.db.entity.LeaveRecordWithHashtags
-import com.dayoff.data.repository.AnnualLeaveRecord
-import com.dayoff.data.repository.Hashtag
+import com.dayoff.core.model.AnnualLeaveRecord
+import com.dayoff.core.model.Hashtag
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit

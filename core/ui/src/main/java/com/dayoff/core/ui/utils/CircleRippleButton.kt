@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.dp
 fun CircleRippleButton(
     modifier: Modifier = Modifier,
     contentPadding: Dp = 8.dp,
+    enabled: Boolean = true,
     clickable: () -> Unit,
     content: @Composable () -> Unit,
 ) {
@@ -29,6 +30,7 @@ fun CircleRippleButton(
         modifier = modifier
             .clip(CircleShape)
             .clickable(
+                enabled = enabled,
                 role = Role.Button,
                 interactionSource = interactionSource,
                 indication = ripple(

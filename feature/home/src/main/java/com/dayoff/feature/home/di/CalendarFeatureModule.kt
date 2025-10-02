@@ -15,6 +15,7 @@ val calendarFeatureModule = module {
             handle = handle,
             calendarRepository = get(),
             yearManagementRepository = get(),
+            annualLeaveRepository = get(),
         )
     }
 }

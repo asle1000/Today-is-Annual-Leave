@@ -19,7 +19,7 @@ import com.dayoff.core.ui.R
 import com.dayoff.core.ui.TialIconRadioButtonGridGroup
 import com.dayoff.core.ui.TialTextRadioButtonVerticalGroup
 import com.dayoff.core.ui.basic.BasicExposedDropdown
-import com.dayoff.core.ui.calendar.CalendarView
+import com.dayoff.core.ui.calendar.AnnualLeaveOverView
 import com.dayoff.core.ui.calendar.SubTitle
 import com.dayoff.designsystem.theme.LocalTialColors
 import com.dayoff.designsystem.theme.LocalTialTypes
@@ -90,7 +90,7 @@ fun LeaveSelector(
 
     Spacer(Modifier.height(8.dp))
 
-    CalendarView(
+    AnnualLeaveOverView(
         days = calendarDays,
         yearMonth = yearMonth,
         mode = ClickMode.Select,

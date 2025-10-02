@@ -5,6 +5,7 @@ import com.dayoff.designsystem.theme.colors.BackgroundColor
 import com.dayoff.designsystem.theme.colors.BorderColor
 import com.dayoff.designsystem.theme.colors.ButtonColor
 import com.dayoff.designsystem.theme.colors.IconColor
+import com.dayoff.designsystem.theme.colors.LeaveColor
 import com.dayoff.designsystem.theme.colors.TextColor
 import com.dayoff.designsystem.theme.colors.TialBackgroundColors
 import com.dayoff.designsystem.theme.colors.TialBaseBackgroundColors
@@ -26,6 +27,7 @@ import com.dayoff.designsystem.theme.colors.TialDisabledBackgroundColors
 import com.dayoff.designsystem.theme.colors.TialDisabledBorderColors
 import com.dayoff.designsystem.theme.colors.TialDisabledTextColors
 import com.dayoff.designsystem.theme.colors.TialIconColors
+import com.dayoff.designsystem.theme.colors.TialLeaveColors
 import com.dayoff.designsystem.theme.colors.TialSuccessBackgroundColors
 import com.dayoff.designsystem.theme.colors.TialSuccessBorderColors
 import com.dayoff.designsystem.theme.colors.TialSuccessTextColors
@@ -182,6 +184,11 @@ val tialLightColors = TialColors(
                 disabledOn = ButtonColor.brand.icon.disabledOn
             )
         )
+    ),
+    leave = TialLeaveColors(
+        annual = LeaveColor.annual,
+        half = LeaveColor.half,
+        quarter = LeaveColor.quarter,
     )
 )
 
