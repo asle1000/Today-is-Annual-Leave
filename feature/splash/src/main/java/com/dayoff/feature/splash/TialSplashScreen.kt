@@ -89,7 +89,7 @@ fun TialSplashScreen(
             Text(
                 text = stringResource(R.string.text_app_name), style = TextStyle(
                     fontSize = 40.sp,
-                    fontFamily = FontFamily(Font(resId = com.dayoff.designsystem.R.font.y_clover_bold)),
+                    fontFamily = FontFamily(Font(resId = R.font.y_clover_bold)),
                     fontWeight = FontWeight.Bold,
                     color = color.text.brand.primary,
                     textAlign = TextAlign.Center,

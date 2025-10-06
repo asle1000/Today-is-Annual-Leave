@@ -30,7 +30,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dayoff.core.model.Screen
-import com.dayoff.core.ui.calendar.AnnualLeaveOverView
+import com.dayoff.core.ui.calendar.CalendarView
 import com.dayoff.core.ui.model.ClickMode
 import com.dayoff.core.ui.model.Selection
 import com.dayoff.designsystem.theme.LocalTialColors
@@ -38,7 +38,6 @@ import com.dayoff.designsystem.theme.LocalTialTypes
 import com.dayoff.feature.home.components.AddAnnualEventFab
 import com.dayoff.feature.home.components.AnnualYearButtonGroup
 import org.koin.androidx.compose.koinViewModel
-import timber.log.Timber
 
 /**
  *  Created by KyunghyunPark at 2025. 7. 29.
@@ -61,9 +60,8 @@ fun HomeScreen(
 
     val selection by remember { mutableStateOf(Selection()) }
 
-    val leaveRecords by viewModel.leaveRecords.collectAsState()
-
     LaunchedEffect(selectedAnnualIdx) {
+
         if (yearRange.isNullOrEmpty()) {
             return@LaunchedEffect
         }
@@ -78,6 +76,7 @@ fun HomeScreen(
     LaunchedEffect(key1 = yearMonth.year) {
         viewModel.fetchCalendarEvents(year = yearMonth.year)
     }
+
 
     Scaffold(
         modifier = Modifier.background(color.background.base.primary),
@@ -129,10 +128,9 @@ fun HomeScreen(
                     }
 
                     else -> {
-                        AnnualLeaveOverView(
+                        CalendarView(
                             days = days,
                             yearMonth = yearMonth,
-                            leaveRecords = leaveRecords,
                             mode = ClickMode.Inspect, // or Inspect
                             selection = selection,
                             onYearMonthChanged = viewModel::onYearMonthChanged,
