@@ -41,6 +41,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.dayoff.core.model.AnnualLeaveRecord
 import com.dayoff.core.ui.basic.BackIconButton
 import com.dayoff.core.ui.basic.TopAppBar
 import com.dayoff.core.ui.button.TialButton
@@ -52,7 +53,6 @@ import com.dayoff.core.ui.model.ConsumptionType
 import com.dayoff.core.ui.model.LeaveSelector
 import com.dayoff.core.ui.model.Selection
 import com.dayoff.core.ui.model.TimePickerSelector
-import com.dayoff.data.repository.AnnualLeaveRecord
 import com.dayoff.designsystem.theme.LocalTialShapes
 import com.dayoff.designsystem.theme.LocalTialTypes
 import kotlinx.coroutines.delay
