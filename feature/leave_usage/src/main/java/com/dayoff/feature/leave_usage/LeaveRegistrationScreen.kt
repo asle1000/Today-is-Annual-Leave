@@ -301,9 +301,7 @@ fun LeaveRegistrationScreen(
                             val endYmd = dates.maxOf(LocalDate::toYmd)
 
                             val totalMinutes =
-                                if (selectedAnnualLeaveType == AnnualLeaveType.HALF_AM ||
-                                    selectedAnnualLeaveType == AnnualLeaveType.HALF_FM
-                                ) 4 * 60
+                                if (selectedAnnualLeaveType == AnnualLeaveType.HALF_AM || selectedAnnualLeaveType == AnnualLeaveType.HALF_FM) 4 * 60
                                 else count * 8 * 60
 
                             val record = AnnualLeaveRecord(
@@ -318,16 +316,13 @@ fun LeaveRegistrationScreen(
                             )
 
                             coroutineScope.launch {
-                                viewModel.registerAnnualLeave(record).fold(
-                                    onSuccess = {
-                                        Timber.d("onSuccess: $it")
-                                        onDone()
-                                    },
-                                    onFailure = {
-                                        showSnack("해당 날 ")
-                                        Timber.d("onFailure: $it")
-                                    }
-                                )
+                                viewModel.registerAnnualLeave(record).fold(onSuccess = {
+                                    Timber.d("onSuccess: $it")
+                                    onDone()
+                                }, onFailure = {
+                                    showSnack("해당 날 ")
+                                    Timber.d("onFailure: $it")
+                                })
                             }
                         }
 
@@ -343,7 +338,6 @@ fun LeaveRegistrationScreen(
 
                             val usedMinutes =
                                 (hour.toIntOrNull() ?: 0) * 60 + (minutes.toIntOrNull() ?: 0)
-
 
                             if (usedMinutes == 0) {
                                 coroutineScope.launch { showSnack("사용할 시간을 선택해 주세요.") }
