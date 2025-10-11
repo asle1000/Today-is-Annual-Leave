@@ -51,8 +51,6 @@ class CalendarRepositoryImpl(
                 annualLeaveEntities.forEach { annualLeaveEntity ->
                     val annualLeaveRecord = annualLeaveEntity.toDto()
 
-                    Timber.d("[TEST] $annualLeaveRecord")
-
                     val originalStartDate = annualLeaveRecord.startYmd.toLocalDate()
                     val originalEndDate = annualLeaveRecord.endYmd.toLocalDate()
 

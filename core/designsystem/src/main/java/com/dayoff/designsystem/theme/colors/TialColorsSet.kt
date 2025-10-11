@@ -7,7 +7,8 @@ data class TialColors(
     val text: TialTextColors,
     val icon: TialIconColors,
     val border: TialBorderColors,
-    val button: TialButtonColors
+    val button: TialButtonColors,
+    val leave: TialLeaveColors
 )
 
 data class TialBackgroundColors(
@@ -160,6 +161,12 @@ data class TialDangerBorderColors(
 
 data class TialButtonColors(
     val brand: TialBrandButtonColors
+)
+
+data class TialLeaveColors(
+    val annual: Color,
+    val half: Color,
+    val quarter: Color
 )
 
 data class TialBrandButtonColors(

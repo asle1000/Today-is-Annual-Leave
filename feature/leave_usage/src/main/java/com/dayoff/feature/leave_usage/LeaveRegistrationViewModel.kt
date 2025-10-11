@@ -3,9 +3,9 @@ package com.dayoff.feature.leave_usage
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.dayoff.core.model.AnnualLeaveRecord
 import com.dayoff.core.model.calendar.CalendarDay
 import com.dayoff.core.model.year_management.YearManagementInfo
-import com.dayoff.data.repository.AnnualLeaveRecord
 import com.dayoff.data.repository.AnnualLeaveRepository
 import com.dayoff.data.repository.CalendarRepository
 import com.dayoff.data.repository.YearManagementRepository
