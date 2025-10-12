@@ -75,20 +75,19 @@ fun CalendarView(
                 CalendarAction.None -> Unit
             }
         },
-        onPrevMonth = {
-            if (yearMonth.monthValue > 1) {
-                val changedYearMonth = yearMonth.minusMonths(1)
-                onYearMonthChanged(changedYearMonth.year, changedYearMonth.monthValue)
-            } else {
-                Toast.makeText(context, "이전 달이 없습니다.", Toast.LENGTH_SHORT).show()
-            }
-        },
-        onNextMonth = {
-            if (yearMonth.monthValue < 12) {
-                val nextYearMonth = yearMonth.plusMonths(1)
-                onYearMonthChanged(nextYearMonth.year, nextYearMonth.monthValue)
-            } else {
-                Toast.makeText(context, "마지막 달 입니다.", Toast.LENGTH_SHORT).show()
+        onMonthChange = { offset ->
+            val nextYearMonth = yearMonth.plusMonths(offset.toLong())
+
+            when {
+                offset < 0 && yearMonth.monthValue == 1 -> {
+                    Toast.makeText(context, "이전 달이 없습니다.", Toast.LENGTH_SHORT).show()
+                }
+                offset > 0 && yearMonth.monthValue == 12 -> {
+                    Toast.makeText(context, "마지막 달 입니다.", Toast.LENGTH_SHORT).show()
+                }
+                else -> {
+                    onYearMonthChanged(nextYearMonth.year, nextYearMonth.monthValue)
+                }
             }
         },
     )

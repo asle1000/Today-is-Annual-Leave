@@ -28,7 +28,7 @@ fun PreviewAllDayCellCases() {
     ) {
         Row {
             indicatorTypes.forEach { indicatorType ->
-                DayCellIndicator(indicatorType = indicatorType, size = 8.dp, showLabel = true)
+                DayCellIndicator(type = indicatorType, size = 8.dp, showLabel = true)
                 Spacer(Modifier.width(16.dp))
             }
         }
@@ -37,7 +37,7 @@ fun PreviewAllDayCellCases() {
                 DayCell(
                     day = 10,
                     cellType = cellType,
-                    indicatorTypeList = indicatorTypes.toList(),
+                    indicators = indicatorTypes.toList(),
                     modifier = Modifier.size(48.dp)
                 )
             }

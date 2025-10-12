@@ -4,13 +4,14 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.dayoff.core.ui.R
 import com.dayoff.core.ui.utils.CircleRippleButton
@@ -20,10 +21,8 @@ import com.dayoff.designsystem.theme.LocalTialTypes
 @Composable
 fun CalendarHeader(
     modifier: Modifier = Modifier,
-    year: Int,
     month: Int,
-    onPrevMonth: () -> Unit,
-    onNextMonth: () -> Unit,
+    onMonthChange: (offset: Int) -> Unit = {},
 ) {
     val type = LocalTialTypes.current
     val color = LocalTialColors.current
@@ -31,44 +30,40 @@ fun CalendarHeader(
     Row(
         modifier = modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Center
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center
+            horizontalArrangement = Arrangement.spacedBy(6.dp)
         ) {
-
             CircleRippleButton(
                 contentPadding = 4.dp,
-                clickable = onPrevMonth,
+                clickable = { onMonthChange(-1) },
             ) {
                 Icon(
-                    painter = painterResource(id = R.drawable.ic_arrow_back),
-                    contentDescription = "icon previous button",
+                    painter = painterResource(R.drawable.ic_arrow_back),
+                    contentDescription = "Previous month",
                 )
             }
 
-            Spacer(modifier = Modifier.size(size = 6.dp))
-
             Text(
-                text = "$year. ${month.toString().padStart(2, '0')}",
+                modifier = Modifier.width(width = 70.dp),
+                text = "${month}월",
                 color = color.text.surface.primary,
                 style = type.labelLarge,
+                textAlign = TextAlign.Center,
             )
-
-            Spacer(modifier = Modifier.size(size = 6.dp))
 
             CircleRippleButton(
                 contentPadding = 4.dp,
-                clickable = onNextMonth,
+                clickable = { onMonthChange(1) },
             ) {
                 Icon(
-                    painter = painterResource(id = R.drawable.ic_arrow_forward),
-                    contentDescription = "icon forward button",
+                    painter = painterResource(R.drawable.ic_arrow_forward),
+                    contentDescription = "Next month",
                 )
             }
         }
 
-        Spacer(modifier = Modifier.weight(1f))
+        Spacer(Modifier.weight(1f))
     }
 }
