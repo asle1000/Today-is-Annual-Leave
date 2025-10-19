@@ -18,7 +18,7 @@ fun CalendarLegend(modifier: Modifier = Modifier) {
         DayCellIndicatorType.entries.filter {
             it != DayCellIndicatorType.NONE
         }.map { type ->
-            DayCellIndicator(indicatorType = type, showLabel = true)
+            DayCellIndicator(type = type, showLabel = true)
         }
     }
 }

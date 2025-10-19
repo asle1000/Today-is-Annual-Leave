@@ -1,10 +1,7 @@
 package com.dayoff.core.ui.calendar
 
-/**
- *  Created by KyunghyunPark at 2025. 10. 6.
-
- */
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -26,8 +23,7 @@ fun MonthCalendar(
     yearMonth: YearMonth,
     startDayOfWeek: DayOfWeek = DayOfWeek.MONDAY,
     onDayClick: (Int, MonthType) -> Unit = { _, _ -> },
-    onPrevMonth: () -> Unit = {},
-    onNextMonth: () -> Unit = {},
+    onMonthChange: (offset: Int) -> Unit = {},
 ) {
     val color = LocalTialColors.current
     val shape = LocalTialShapes.current
@@ -35,16 +31,15 @@ fun MonthCalendar(
     Column(
         modifier = modifier
             .background(
-                color = color.background.surface.primary,
+                color = color.background.base.white,
                 shape = shape.ExtraLarge,
             )
-            .padding(20.dp)
+            .border(width = 1.dp, color = color.border.surface.primary, shape = shape.ExtraLarge)
+            .padding(all = 20.dp),
     ) {
         CalendarHeader(
-            year = yearMonth.year,
             month = yearMonth.monthValue,
-            onPrevMonth = onPrevMonth,
-            onNextMonth = onNextMonth,
+            onMonthChange = onMonthChange,
         )
 
         Spacer(Modifier.height(16.dp))

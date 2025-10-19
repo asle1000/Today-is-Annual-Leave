@@ -29,7 +29,7 @@ fun CalendarGrid(
                     DayCell(
                         day = day.day,
                         cellType = day.cellType,
-                        indicatorTypeList = day.indicatorType,
+                        indicators = day.indicatorType,
                         onClick = { onDayClick(day.day, day.monthType) }
                     )
                 }
