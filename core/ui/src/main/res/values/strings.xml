@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Year Selector Header -->
+    <string name="year_selector_format">%d년</string>
+    <string name="description_year_selector_button">설명:연도 선택 버튼</string>
+    <string name="description_year_selector_icon">설명:연도 선택 드롭다운 아이콘</string>
+    <string name="description_settings_button">설명:설정 버튼</string>
+</resources>
